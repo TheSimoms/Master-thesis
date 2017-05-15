@@ -1,0 +1,211 @@
+\chapter{\whoscoredplain\ data description}
+\label{chp:whoscored-data-description}
+
+
+\section{Match events}
+
+\begin{table}[H]
+    \centering
+    \noindent\begin{tabulary}{\textwidth}{| L | L |}
+        \hline
+        \textbf{Name}       & \textbf{Description} \\\hline
+        Start               & The match started \\\hline
+        End                 & The match ended \\\hline
+        Formation set       & Initial formation information for a team \\\hline
+        
+        Corner awarded      & A team was awarded a corner \\\hline
+        Offside provoked    & A team was caught offside \\\hline
+        Formation change    & A team made a change in their formation \\\hline
+        Turnover            & A team made a turnover \\\hline
+        Cross not claimed   & A cross was not claimed by the team \\\hline
+        Shield ball opp     & The opposing team shielded the ball \\\hline
+        
+        Save                & A keeper made a save \\\hline
+        Saved shot          & A keeper saved a shot \\\hline
+        Penalty faced       & A keeper faced a penalty \\\hline
+        Keeper sweeper      & A keeper swept the ball \\\hline
+        Claim               & A keeper claimed the ball \\\hline
+        Punch               & A keeper punched the ball \\\hline
+        Smother             & A keeper made a smother save \\\hline
+        Keeper pickup       & A keeper picked up the ball \\\hline
+        
+        Pass                & A player made a pass \\\hline
+        Goal                & A player scored a goal \\\hline
+        Ball recovery       & A player recovered the ball from the opposing team \\\hline
+        Ball touch          & A player made a touch on the ball \\\hline
+        Take on             & A player took on another player \\\hline
+        Tackle              & A player made a tackle \\\hline
+        Dispossessed        & A player lost possession of the ball \\\hline
+        Interception        & A player intercepted a pass \\\hline
+        Clearance           & A player made a clearance \\\hline
+        Blocked pass        & A player blocked a pass \\\hline
+        Aerial              & A player went into an aerial duel \\\hline
+        Foul                & A player made a foul \\\hline
+        Missed shots        & A player missed a shot \\\hline
+        Challenge           & A player challenged another player for the ball \\\hline
+        Card                & A player was awarded a card \\\hline
+        Error               & A player made en error \\\hline
+        Substitution off    & A player was substituted off \\\hline
+        Substitution on     & A player was substituted on \\\hline
+        Shot on post        & A player hit a goal post with a shot \\\hline
+        Good skill          & A player showed good skills \\\hline
+        Chance missed       & A player missed a chance \\\hline
+        Offside pass        & A pass offside provoking was made \\\hline
+    \end{tabulary}
+    \caption{Different event types in the detailed matches at \whoscored}
+    \label{tab:whoscored-event-types}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \noindent\begin{tabulary}{\textwidth}{| L | L | L | L |}
+        \hline
+        \textbf{Name}       & \textbf{Description}                                              & \textbf{Mandatory?} \\\hline
+        ID                  & Unique event ID                                                   & \xmark \\\hline
+        Event ID            & ID relative to the match                                          & \xmark \\\hline
+        Minute              & What minute the event occurs                                      & \cmark \\\hline
+        Second              & What second the event occurs                                      & \cmark \\\hline
+        Player ID           & ID of the player the event concerns                               & \xmark \\\hline
+        Related player ID   & ID of other player the event concerns                             & \xmark \\\hline
+        X                   & X coordinate of where the event occurs                            & \xmark \\\hline
+        Y                   & Y coordinate of where the event occurs                            & \xmark \\\hline
+        End x               & X coordinate of where the event ends                              & \xmark \\\hline
+        End y               & Y coordinate of where the event ends                              & \xmark \\\hline
+        Goal mouth x        & X coordinate of where the ball entered the goal                   & \xmark \\\hline
+        Goal mouth y        & Y coordinate of where the ball entered the goal                   & \xmark \\\hline
+        Period              & What match half the event occurs                                  & \xmark \\\hline
+        Type                & What type of event it is (\refertable{tab:whoscored-event-types}) & \xmark \\\hline
+        Outcome             & Whether the event is successful or unsuccessful                   & \xmark \\\hline
+        Qualifiers          & List of different event properties                                & \cmark \\\hline
+        Is touch            & Whether event is a touch                                          & \xmark \\\hline
+        Is goal             & Whether event is a goal                                           & \xmark \\\hline
+        Is own goal         & Whether event is an own goal                                      & \xmark \\\hline
+        Is penalty          & Whether event is a penalty                                        & \xmark \\\hline
+        Is touch            & Whether event is a touch                                          & \xmark \\\hline
+    \end{tabulary}
+    \caption{Propeties of a detailed event at \whoscored}
+    \label{tab:whoscored-event-properties}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \noindent\begin{tabulary}{\textwidth}{| L | L |}
+        \hline
+        \textbf{Name}           & \textbf{Description} \\\hline
+        Tackles successful      & Number of successful tackles \\\hline
+        Tackles unsuccessful    & Number of unsuccessful tackles \\\hline
+        Tackles total           & Total number of tackles \\\hline
+        
+        Shots on target         & Number of shots on target \\\hline
+        Shots off target        & Number of shots off target \\\hline
+        Shots blocked           & Number of shots blocked \\\hline
+        Shots on post           & Number of shots to hit a goal post \\\hline
+        Shots total             & Total number of shots \\\hline
+        
+        Dribbles won            & Number of dribbles won \\\hline
+        Dribbles lost           & Number of dribbles lost \\\hline
+        Dribbles attempted      & Total number of dribbles attempted \\\hline
+        Dribbled past           & Number of times the player was dribbled past \\\hline
+        
+        Passes accurate         & Number of accurate passes \\\hline
+        Passes key              & Number of key passes \\\hline
+        Passes total            & Total number of passes \\\hline
+        
+        Touches                 & Number of touches \\\hline
+        Possessions             & Number of times the player was in possession of the ball \\\hline
+        
+        Interceptions           & Number of interceptions made \\\hline
+        Fouls committed         & Number of fouls committed \\\hline
+        Claims high             & Number of claims made high on the pitch \\\hline
+        Clearances              & Number of clearances made \\\hline
+        Parried safe            & Number of times the player successfully parried the ball \\\hline
+        Parried danger          & Number of times the player parried the ball into a dangerous situation \\\hline
+        Errors                  & Number of errors made \\\hline
+        
+        Dispossessed            & Number of times the player lost the ball \\\hline
+        Offsides caught         & Number of times the player was caught offside \\\hline
+        Corners accurate        & Number of accurate corners kicked \\\hline
+        Corners total           & Total number of corners kicked \\\hline
+        
+        Collected               & Number of times the player collected the ball \\\hline
+        Total saves             & Total number of saves made \\\hline
+        
+        Offensive aerials       & Number of offensive aerials participated in \\\hline
+        Defensive aerials       & Number of defensive aerials participated in \\\hline
+        Aerials won             & Number of aerials won \\\hline
+        Aerials total           & Total number of aerials \\\hline
+    \end{tabulary}
+    \caption{List of player metrics in the detailed matches at \whoscored}
+    \label{tab:whoscored-player-metrics}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \noindent\begin{tabular}{| p{3cm} | p{10cm} |}
+        \hline
+        \textbf{URL post-fix} & \textbf{Description} \\\hline
+        Preview & Probable lineups, missing players, and top players. \\\hline
+        Show & Last matches between the competing teams. Current table positions (if applicable). Last matches for the competing teams. Team characteristics at the time of the match. \\\hline
+        TeamStatistics & Team characteristics at the time of the match (the same as in the \url{Live} view). Per-match statistics, listing average number of goals, shots, cards, corners, fouls, etc. for the competing teams. Situational statistics, listing summary of goals for/against the teams, passing history, and cards history. Positional statistics, highlighting where on the pitch the teams usually play and shoot. \\\hline
+        PlayerStatistics & Height, weight, matches played, minutes played, ratings, and numbers from \refertable{tab:whoscored-player-metrics} for the players in the competing teams' squads. \\\hline
+        Betting & Odds (if match is not finished). Summary of the teams' recent results. Summary of goals scored by the teams (how many, scoring times, and number of clean sheets and goal-less games). \\\hline
+        Live & "Match Centre"; overview of the players, with their positions, substitutions, final ratings, and most important events. "Match Commentary"; timeline containing textual descriptions of how the match progressed. "Chalkboard"; spatiotemporal overview over player events (shots, passes, dribbles, clearances, saves, etc.). "Heatmaps"; heatmaps, highlighting where on the pitch the different players contributed to the match. "Live Stream": live stream of the match (if available) \\\hline
+        MatchReport & Textual summary of the teams' strengths, weaknesses, and styles. Situational report, listing the number of attempts, passes, and card situations. \\\hline
+        LiveStream & Live stream of the match (if available). \\\hline
+    \end{tabular}
+    \caption{List of different views for matches at \whoscored}
+    \label{tab:whoscored-match-views}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \noindent\begin{tabular}{| p{3cm} | p{10cm} |}
+        \hline
+        \textbf{URL post-fix} & \textbf{Description} \\\hline
+        Show & List of recent matches. List of coming matches. Current squad, with summary of the numbers from \refertable{tab:whoscored-player-metrics} for each player. Team characteristics. Top players. Formation summary (seasonal, last match, and a list of what positions the current squad members have played). \\\hline
+        Fixtures & List of the team's matches the current season. \\\hline
+        Statistics & Match statistics (average number of cards, possession, passes, shots, tackles, etc.). Situational statistics (where the team usually scores from, what kind of passes are usually made, and how the team is usually awarded cards). Positional statistics, including where on the pitch the team usually plays and where on the pitch the team usually shoot for the goal. \\\hline
+        RefereeStatistics & List of all referees that have conducted the team, including number of matches the have conducted, cards they have issued, and penalties they have awarded. \\\hline
+        History & List of team squads, with summary of the numbers from \refertable{tab:whoscored-player-metrics} for each player. Option show statistics from different seasons. \\\hline
+    \end{tabular}
+    \caption{List of different views for teams at \whoscored}
+    \label{tab:whoscored-team-views}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \noindent\begin{tabular}{| p{3cm} | p{10cm} |}
+        \hline
+        \textbf{URL post-fix} & \textbf{Description} \\\hline
+        Show & Player information (name, height, weight, full name, age, nationality, current team, shirt number, positions). Tournaments the player currently participates in, with summary of the numbers from \refertable{tab:whoscored-player-metrics}. List of different playing positions the player has had. Player characteristics. List of the last 10 matches the player participated in. \\\hline
+        Fixtures & List of matches the current season where the player has participated. \\\hline
+        History & Summary of the player's career, including competitions, matches played, minutes played, and the numbers from \refertable{tab:whoscored-player-metrics} \\\hline
+    \end{tabular}
+    \caption{List of different views for players at \whoscored}
+    \label{tab:whoscored-player-views}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \noindent\begin{tabular}{| l |}
+        \hline
+        \textbf{Description} \\\hline
+        Home team ID \\\hline
+        Away team ID \\\hline
+        Home team name \\\hline
+        Away team name \\\hline
+        Kickoff time \\\hline
+        Start of match date \\\hline
+        Match status \\\hline
+        Elapsed time (HT for half time, FT for full time, EAT for extra after time, PEN for after penalties) \\\hline
+        Half time score \\\hline
+        Full time score \\\hline
+        Score after extra time \\\hline
+        Score after penalties \\\hline
+        Final score \\\hline
+        Home team country \\\hline
+        Away team country \\\hline
+    \end{tabular}
+    \caption{Ordered list of fields in \whoscored\ match header}
+    \label{tab:whoscored-match-header-data}
+\end{table}

@@ -1,0 +1,180 @@
+\documentclass[
+  footinclude=true,
+  headinclude=true
+]{report}
+
+
+%========================================================================
+%   PACKAGES
+%========================================================================
+
+\input{config/packages.tex}
+
+
+%========================================================================
+%   CONFIGURATION
+%========================================================================
+
+\input{config/config.tex}
+
+
+%========================================================================
+%   DOCUMENT START
+%========================================================================
+
+\begin{document}
+
+% Log errors
+\tracingall
+
+% Remove page numbering
+\pagenumbering{gobble}
+
+
+%========================================================================
+%   TITLE PAGE
+%========================================================================
+
+\input{contents/title_page.tex}
+
+
+%========================================================================
+%   ABSTRACT
+%========================================================================
+
+\input{contents/abstract.tex}
+
+
+%========================================================================
+%   PREFACE
+%========================================================================
+
+\input{contents/preface.tex}
+
+
+%========================================================================
+%   TABLE OF CONTENTS
+%========================================================================
+
+\input{contents/contents.tex}
+
+
+% Numeric page numbering
+\pagenumbering{arabic}
+
+
+%========================================================================
+%   CHAPTER: INTRODUCTION
+%========================================================================
+
+\chapter{Introduction}
+\label{chp:introduction}
+\input{contents/chapters/introduction/introduction.tex}
+\input{contents/chapters/introduction/background-motivation.tex}
+\input{contents/chapters/introduction/research-questions.tex}
+\input{contents/chapters/introduction/report-outline.tex}
+
+
+%========================================================================
+%   CHAPTER: BACKGROUND
+%========================================================================
+
+\chapter{Background}
+\label{chp:background}
+\input{contents/chapters/background/introduction.tex}
+\input{contents/chapters/background/models.tex}
+\input{contents/chapters/background/important-variables.tex}
+\input{contents/chapters/background/applying-to-betting.tex}
+\input{contents/chapters/background/whoscored.tex}
+
+
+%========================================================================
+%   CHAPTER: Theory
+%========================================================================
+
+\chapter{Theory}
+\label{chp:theory}
+\input{contents/chapters/theory/introduction.tex}
+\input{contents/chapters/theory/statistical-classification.tex}
+\input{contents/chapters/theory/neural-networks.tex}
+\input{contents/chapters/theory/programming.tex}
+
+
+%========================================================================
+%   CHAPTER: SYSTEM ARCHITECTURE
+%========================================================================
+
+\chapter{System architecture}
+\label{chp:system-architecture}
+\input{contents/chapters/system-architecture/introduction.tex}
+\input{contents/chapters/system-architecture/database-overview.tex}
+\input{contents/chapters/system-architecture/whoscored-crawler.tex}
+\input{contents/chapters/system-architecture/neural-networks.tex}
+\input{contents/chapters/system-architecture/betting-simulator.tex}
+
+
+%========================================================================
+%   CHAPTER: EXPERIMENTS
+%========================================================================
+
+\chapter{Experiments}
+\label{chp:experiments}
+\input{contents/chapters/experiments/introduction.tex}
+\input{contents/chapters/experiments/models/introduction.tex}
+\input{contents/chapters/experiments/models/player-ratings.tex}
+\input{contents/chapters/experiments/models/head-to-head.tex}
+\input{contents/chapters/experiments/models/previous-meetings.tex}
+\input{contents/chapters/experiments/models/team-characteristics.tex}
+\input{contents/chapters/experiments/betting/introduction.tex}
+\input{contents/chapters/experiments/betting/betting.tex}
+
+
+%========================================================================
+%   CHAPTER: RESULTS
+%========================================================================
+
+\chapter{Results}
+\label{chp:results}
+\input{contents/chapters/results/introduction.tex}
+
+
+%========================================================================
+%   CHAPTER: CONCLUSION
+%========================================================================
+
+\chapter{Conclusion}
+\label{chp:conclusion}
+\input{contents/chapters/conclusion/introduction.tex}
+\input{contents/chapters/conclusion/conclusion.tex}
+
+
+%========================================================================
+%   CHAPTER: FUTURE WORK
+%========================================================================
+
+\chapter{Future work}
+\label{chp:future-work}
+\input{contents/chapters/future-work/introduction.tex}
+\input{contents/chapters/future-work/future-work.tex}
+
+
+%========================================================================
+%   BIBLIOGRAPHY
+%========================================================================
+
+\printbibliography[heading=bibintoc, title={References}]
+
+
+%========================================================================
+%   APPENDICES
+%========================================================================
+
+\begin{appendices}
+    % Remove appendix sections from toc
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+    \input{contents/appendices/whoscored-data-description.tex}
+    \input{contents/appendices/results.tex}
+\end{appendices}
+
+
+\end{document}

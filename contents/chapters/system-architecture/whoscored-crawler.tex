@@ -1,0 +1,113 @@
+\section{\whoscoredplain\ crawler}
+
+There are several steps one must go through in order to populate the database in \refersection{sec:database-overview}. For each season, one must first gather the IDs for all the matches. When the IDs are gathered, one can start traversing all matches, gathering scorelines, event information, player statistics, etc. Below comes a description of how to locate the different data sources, and how to extract the data.
+
+
+\subsection{URL structure}
+
+When crawling \whoscored\  for data, one must know where the web pages containing the wanted data are located. Every match, team, and player listed on \whoscored\ has its own unique ID, given as an integer number. Regions, leagues, seasons, and season stages also has their own unique IDs. Different entity types have their own URL structure. The only difference between the URLs of two entities of the same kind are their IDs.
+
+
+\subsection{Match IDs}
+
+Season fixtures are available at the following URLs:
+
+\whoscoredurl{/Regions/REGION/Tournaments/TOURNAMENT/Seasons/SEASON/Stages/STAGE/Fixtures},
+
+where \textbf{REGION} is the region of the tournament (either a nation or an international tournament), \textbf{TOURNAMENT} the tournament in question, \textbf{SEASON} the season to fetch fixtures for, and \textbf{STAGE} the stage of the season. For league tournaments, the stage ID stays the same. For knockout tournaments, there are different stages per season (qualification, group stage, and knockout stage).
+
+Fixtures are grouped by year and month. Finished matches are marked with the final score, while coming matches are marked with "\textbf{vs}". The matches are listed in a large table, one row for each match, as shown in \referfigure{fig:whoscored-fixture-list}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{whoscored/fixture-list.png}
+    \caption{Small portion of the match fixtures for May 2017 in the English Premier League.}
+    \label{fig:whoscored-fixture-list}
+\end{figure}
+
+The row elements contain the ID for each match. Extracting the match ID is as simple as fetching the \url{data-id} attribute from the row element. The example below shows the row element for Arsenal versus Manchester United \DTMdate{2017-05-07}.
+\begin{lstlisting}[language=HTML]
+<tr class="item" data-id="1080862">...</td>
+\end{lstlisting}
+
+
+\subsection{Match data}
+
+Match URLs are of the following form:
+
+\whoscoredurl{/Matches/ID/VIEW},
+
+where \textbf{ID} is the match ID, and \textbf{VIEW} is the current view. A match has different views, depending on whether it is detailed or not, and whether is is finished, ongoing on not started. The different views are listed in \refertable{tab:whoscored-match-views}.
+
+
+\subsubsection{Match events}
+
+Match event data is located at the \url{Live} match view. Event data is stored in three different locations, depending on detail level. All match event data is located in JavaScript variables in the source code of the respective web page. Fetching the data can easily be done using simple regular expressions.
+
+The minimum match details are located in a variable called \url{matchHeader}. A description of the data in the match header is shown in \refertable{tab:whoscored-match-header-data}. The below example is from Arsenal versus Manchester United \DTMdate{2017-05-07}.
+\begin{lstlisting}[language=JavaScript]
+matchHeader.load([13,32,'Arsenal','Manchester United','07/05/2017 16:00:00','07/05/2017 00:00:00',6,'FT','0 : 0','2 : 0',,,'2 : 0','England','England']);
+\end{lstlisting}
+Extracting the match header from the web page source code can be done using the following regular expression;
+\begin{lstlisting}[language=Python]
+    /matchHeader\.load\((.+?)\);/
+\end{lstlisting}
+
+The intermediate match details are located in a variable called \url{initialMatchDataForScrappers}. \url{initialMatchDataForScrappers} contains the match header, lineups, substitutions and most important match events. Extracting the intermediate match details from the web page source code can be done using the following regular expression;
+\begin{lstlisting}[language=Python]
+    /var initialMatchDataForScrappers = (.+?);/
+\end{lstlisting}
+
+The full match details are located in a variable called \url{matchCentreData}. \url{matchCentreData} is divided into three main parts; general information, home team information, and away team information. The included information is described in \refersection{subsubsec:whoscored-full-details}. Extracting the full match details from the web page source code can be done using the following regular expression;
+\begin{lstlisting}[language=Python]
+    /var matchCentreData = (.+?);/
+\end{lstlisting}
+
+
+\subsubsection{Head to head information}
+
+Head to head information is located at the \url{Show} match view.
+
+Previous meetings (up to six matches) between the two teams are listed in a table, with one row for each match, as shown in \referfigure{fig:whoscored-previous-meetings}. For each match, there is a hypertext to the match web page. The below example is from Arsenal versus Manchester United \DTMdate{2015-10-14}.
+\begin{lstlisting}[language=HTML]
+    <a class="..." href="/Matches/959804/Live/England-Premier-League-2015-2016-Arsenal-Manchester-United">3 : 0</a>
+\end{lstlisting}
+One can extract the match ID from the hypertext using the following regular expression on the hypertext URL:
+\begin{lstlisting}[language=Python]
+    /Matches/(\d+)/
+\end{lstlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{whoscored/previous-meetings.png}
+    \caption{Previous meetings between Arsenal and Manchester United before the match \DTMdate{2017-05-07}.}
+    \label{fig:whoscored-previous-meetings}
+\end{figure}
+Previous matches (also up to six matches) for the two teams are listed in the same way.
+
+Team characteristics for the two teams are listed as three different sets of characteristics; strengths, weaknesses, and style. All characteristics are given a textual description. Strengths and weaknesses are also given a description of their levels (very weak, weak, strong, very strong).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{whoscored/team-characteristics.png}
+    \caption{Team characteristics for Arsenal and Manchester United before the match \DTMdate{2017-05-07}.}
+    \label{fig:whoscored-team-characteristics}
+\end{figure}
+
+
+\iffalse
+\subsection{Team data}
+
+Team URLs are of the following form:
+
+\whoscoredurl{/Teams/ID/VIEW},
+
+where \textbf{ID} is the team ID, and \textbf{VIEW} is the current view. A team has different views, depending on whether it is competing in a detailed competition or not. The different views are listed in \refertable{tab:whoscored-team-views}.
+
+
+\subsection{Player data}
+
+Player URLs are of the following form:
+
+\whoscoredurl{/Players/ID/VIEW},
+
+where \textbf{ID} is the player ID, and \textbf{VIEW} is the current view. A player has different views, depending on whether it is competing in a detailed competition or not. The different views are listed in \refertable{tab:whoscored-player-views}.
+\fi

@@ -1,0 +1,16 @@
+\section{Statistical classification}
+
+Statistical classification is the problem of identifying to what set of categories an observation belongs, given a set of observations with known categories (or classes). A far too well-known classification problem is whether email should be considered "spam" or not. Another well-known example is assigning a diagnosis to a patient, given a description of its symptoms and personal characteristics.
+
+When collecting and analyzing large amounts of data, it is often necessary to separate the different data points into classes. As there are few limitations on how much data a single data point can contain, the classification task can easily become too tough for any human to perform. A digital classifier can then be used instead.
+
+A digital classifier works similarly to the human way. A digital classifier increases its knowledge using a set of known observations and their corresponding classes (the training set). The classifier then applies its obtained knowledge to determine the classes of new observations. This training method is called "supervised learning".
+
+There are several different digital classifier algorithms and systems, such as the \gls{knn} algorithm \citep{bib:peterson-2009}, \glspl{svm} algorithm \citep{bib:noble-2006}, and \glspl{ann} \citep{bib:yegnanarayana-2009}.
+
+
+\subsection{Overfitting}
+
+For a digital classifier to perform well, it must accurately assign correct classes to different observations. However, it must not blindly learn the mappings for the observations in the training data set. It is important that a classifier generalizes, so that it can accurately map new observations. If a classifier can accurately assign classes to known observations, without accurately classifying new observations the classifier "overfits" on the training data \citep{bib:hawkins2004problem}.
+
+Overfitting usually occurs when a network is too complex. When overfitting, the network memorizes known observations rather than learning the underlying target function. Unknown observations then result in random error or noise.

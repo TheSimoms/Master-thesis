@@ -1,0 +1,83 @@
+\section{Applying predictions to betting}
+
+When applying prediction models in a betting setting, the goal of a model changes from predicting the correct result to actually make a profit from the predictions.
+
+\subsection{Background}
+
+In order to understand how to beat the bookmakers, one must first understand how their odds are formed. The expected margin (gain) of a bookmaker on a football match is represented as.
+\begin{equation}
+    E(M) = 1 - \sum_{i=1}^{3} P_{i} * w_{i} * d_{i},
+    \label{eq:vlastakis-dotsis-markellos-margin}
+\end{equation}
+where $i$ correspond to the different outcomes ($1$ for home victory, $2$ for draw, $3$ for away victory). The expected margin $M$ of a match depends both on the probability $P_{i}$ of each outcome, the percentage $w_{i}$ of bets placed on each outcome, and the given odds $d_{i}$ for each outcome \citep{bib:vlastakis-dotsis-markellos-2009}.
+
+Bookmakers are interested in keeping a stable profit, and set their prices accordingly \citep{bib:vlastakis-dotsis-markellos-2009}. \referequation{eq:vlastakis-dotsis-markellos-margin} implies there are different ways for bookmakers to set their prices. One example is to accurately forecast the game outcomes so that the odds reflects the expectations. Another way is to forecast the distribution of bets placed on each outcome. Finally, it is possible to combine the two \citep{bib:vlastakis-dotsis-markellos-2009}.
+
+As the true outcome probabilities are not known, the bookmakers can only control the values of $d_{i}$. The values of $w_{i}$ change (usually according to the corresponding $d_{i}$), and are controlled by the bettors. Therefore, to ensure a profit, the bookmakers must ensure that
+\begin{equation*}
+    \forall i \in \{1, 2, 3\}: w_{i} * d_{i} < 1
+    \quad \text{or, more generally,} \quad
+    \sum_{i=1}^{3} (1 - w_{i} * d_{i}) > 0.
+\end{equation*}
+
+To calculate the actual margins for a single match, one need to know both the odds on every outcome and how the bets are distributed. The odds are publicly available, but the bet distributions are not. One can therefore not calculate the actual margin, but rather an \textit{implied} margin. According to \citet{bib:vlastakis-dotsis-markellos-2009}, the standard way of doing this is by assuming the bets are evenly distributed across all outcomes. That is,  
+\begin{equation*}
+    \forall i \in \{1, 2, 3\}: w_{i} = \frac{1}{3}.
+\end{equation*}
+It is further assumed that the odds are set according to the true probabilities of each outcome. The true probabilities are usually estimated by the bookmaker's own odds compilers \citep{bib:vlastakis-dotsis-markellos-2009}. Assuming the odds are set according to the true probabilities, the fair odds for outcome $i$ is then $\frac{1}{d_{i}}$. However, if the odds are based on the true probabilities, then the expected bookmaker margin would be zero (this can be seen by replacing $d_{i}$ with $P_{i}^{-1}$ in \referequation{eq:vlastakis-dotsis-markellos-margin}). Therefore, the actual odds correspond to \textit{implied} probabilities ($P_{i}'$) somewhat larger than the true probabilities. The expected margin of a bookmaker can then be seen as
+\begin{equation}
+    E(M') = \Bigg(\sum_{i=1}^{3} P_{i}'\Bigg) - 1 = \Bigg(\sum_{i=1}^{3} \frac{1}{d_{i}}\Bigg) - 1.
+    \label{eq:bookmaker-implied-margin}
+\end{equation}
+
+When Liverpool played at home against West Ham on \DTMdate{2016-11-12}, the average odds were $1.29$, $6.22$, and $10.23$ for home, draw, and away, respectively \citep{bib:odds-portal}. By \referequation{eq:bookmaker-implied-margin}, the expected margins of the combined betting marked was $\frac{1}{1.29} + \frac{1}{6.22} + \frac{1}{10.23} - 1 = 0.034$. The bookmakers were expected to gain a profit of $3.4\%$. For a prediction model to make a profit against the bookmakers, it must therefore not just beat the predictions of the bookmakers. It must also beat the built-in margins.
+
+\subsection{Betting strategies}
+\label{sec:betting-strategies}
+
+When deciding whether to place a bet, one must compare the probabilities of the outcomes calculated by the prediction model with the odds offered by the bookmakers. The expected gain for a given bet can be calculated as $P_{i} * d_{i} - 1$, and bets are usually placed on outcomes where the gain is expected to be positive. It is normal to set a threshold, $\tau$ on the minimum discrepancy level allowed. This is done to take the built-in profit margins of the bookmakers into account, increasing the level of confidence needed in order to place a bet.
+
+When an expected profitable match is found, one must be able to decide how much money to place on the bet. Consider the following scenarios:
+\begin{itemize}
+    \item \textbf{Match 1}: $P_{3} = 0.20, d_{3} = 6.0$.
+    \item \textbf{Match 2}: $P_{1} = 0.60, d_{1} = 2.0$.
+\end{itemize}
+The expected gain for each of the bets is $P_{i} * d_{i} - 1 = 0.2$. However, the amount of money to put on each of the bets is not clear. While the odds of Match 2 is clearly lower than that of Match 1, one has to wager more money on Match 2 in order to win the same amount of money. \citet{bib:langseth-2013} presents five different strategies deciding on how much money to place on each bet, based on the outcome probability $P_{i}$ and odds $d_{i}$, and the bankroll $C$ of the bettor. Each strategy output the amount $c_{i}$ to place on a given bet, where $1$ is the unit size. The strategies are as follows:
+\begin{itemize}
+    \item \textbf{Fixed bet:} The simples strategy. For each feasible bet, place the same amount of money. $c_{i} \propto 1$.
+    
+    \item \textbf{Fixed return:} Each bet is assured to produce the same profit. $c_{i} \propto \frac{1}{d_{i}}$. This results in lower amounts placed on low-probability bets.
+    
+    \item \textbf{Kelly ratio:} \citet{bib:kelly-1956} proposed a strategy based on a decision-theoretic approach. In his setup, the utility of having a bankroll of $C$ after a bet is set to $\ln(C)$. The utility for going broke therefore approaches $- \infty$. The expected utility of a bet $c_{i}$ is $P_{i} * \ln(C + d_{i} c_{i}) + (1 - P_{i}) * \ln(C - c_{i})$. The utility is then maximized by choosing $c_{i} = C * \frac{P_{i} d_{i} - 1}{d_{i} - 1}$. To reduce the potential of emptying the bankroll in the early stages, \citet{bib:langseth-2013} proposed a modification of the strategy, where the size of $c_{i}$ is limited not to exceed a predefined value, $C_{0}$, chosen to be "much smaller than the bankroll".
+    
+    \item \textbf{Markowitz portfolio management:} In the Markowitz portfolio management strategy, one look at a collection of bets over a game-week. The goal is to find an allocation of bets that maximizes $\sum_{i=1}^{n} (\mathbb{E}[\Delta_{i}] - \nu Var[\Delta_{i}])$ under the constraint that the bets during the game-week sum to a predefined value $C_{0}$. $\nu$ represents the accepted level of risk. The dual representation of the optimization problem is then to minimize $\sum_{i=1}^{n} Var[\Delta_{i}]$ under the constraints $\sum_{i=1}^{n} c_{i} = C_{0}$ and $\sum_{i=1}^{n} \mathbb{E}[\Delta_{i}] = \mu$. $\mu$ is then the representation of the accepted risk level.
+    
+    \citet{bib:langseth-2013} used three different values for $\mu$ in his experiments;
+    \begin{itemize}
+        \item \textbf{Risk-averse:} $\mu = \mu_{\downarrow} = (\sum_{i=1}^{n} P_{i} d_{i}) / n - 1$
+        \item \textbf{Risk-seeking:} $\mu = \mu^{\uparrow} = \max_{i} P_{i} d_{i} - 1$
+        \item \textbf{Intermediate:} $\mu = (\mu_{\downarrow} + \mu^{\uparrow}) / 2$
+    \end{itemize}
+    
+    \item \textbf{Variance-adjusted:} \citet{bib:rue-salvesen-2000} proposed a strategy for minimizing the difference between the expected profit and the variance of that profit. According to \citet{bib:langseth-2013}, the variance-adjusted strategy can be seen as a simplification of the Markowitz portfolio management strategy. After placing a bet, the difference is $P_{i} d_{i} c_{i} - P_{i}(1 - P_{i})(d_{i} c_{i})^{2}$, which is minimized by choosing $c_{i} = (2 d_{i} (1 - P_{i}))^{-1}$.
+\end{itemize}
+In his paper, \citet{bib:langseth-2013} compared the profitability of three prediction models using the presented strategies. The experiments were conducted over the course of two consecutive seasons of the English Premier League. In the first season, each of the different prediction models were able to make a profit. However, the three prediction models had their own respective most profitable betting strategy. For the second season, only a single combination of prediction model and betting strategy was able to make a profit. The profit, however, was of only $0.4\%$. These results highlight the importance of choosing a betting strategy that suits the prediction model. It should be noted that the threshold $\tau$ was $0$ during these experiments, and that loosing less than the built-in bookmaker margin therefore can be considered "decent" \citep{bib:langseth-2013}.
+
+In addition to the strategies presented by \citet{bib:langseth-2013}, \citet{bib:rue-salvesen-2000} presented another strategy, based on the mean and variance of a bet's profit. From outcome $i$ of a match, let $c_{i}$ be the corresponding bet. The mean and variance of a bet's profit is found using outcome probability $P_{i}$ and outcome odds $d_{i}$. The optimal bet for a match is then found as
+\begin{equation*}
+    \underset{c_{i} > 0}{\arg\max}\ U(\{c_{i}\}), \quad \text{where} \quad U(\{c_{i}\}) = \text{E(profit)} - \text{Var(profit)} = c_{i} (\mu_{i} - c_{i} \sigma_{i}^{2})
+\end{equation*}
+The solution is $c_{i} = \max \{ 0, \mu_{i}/(2 \sigma_{i}^{2}) \}$. In order to place only one bet per match, $i$ is chosen to maximize $c_{i} \mu_{i}$.
+
+
+
+\subsection{Biases}
+
+In addition to the bookmakers' built-in margins, there has been observed biases for different kind of bets. These biases are important to consider when placing bets, as they can significantly impact the profitability of a strategy. \citet{bib:constantinou-fenton-2013} present the three most important odds biases;
+\begin{itemize}
+    \item \textbf{Favorite-longshot bias:} Low-odds bets tend to generate a higher return than high-odds bets. According to \citet{bib:constantinou-fenton-2013}, the strongest hypothesis behind this phenomenon is the bettors preference in backing risky outcomes. For example, in a match where the probability of a home win is $0.9$, even if the bookmaker sets a fair odds of $1.11$, a typical bettor is reluctant to place $\pounds 100$ bet only to win $\pounds 11$. If the probability of an away win is $0.05$, a typical bettor would be prepared to bet at less than fair odds, for example $15$, because a small bet of $\pounds 10$ can potentially return $\pounds 150$. 
+    
+    \item \textbf{Home-away bias:} \citet{bib:constantinou-fenton-2013} mention how some researchers consider all home and away wins serving as favorite and longshot outcomes respectively. On average, away wins can be seen as longshots (as indicated by the home ground advantage), but for a significant portion of matches, this does not hold. \citet{bib:constantinou-fenton-2013} demonstrated the home-away bias by comparing the cumulative returns generated by simulating $\pounds 1$ bets on all home wins, draws, and away wins during seven seasons in four different major leagues.
+    
+    \item \textbf{Most-likely/least-likely bias:} \citet{bib:constantinou-fenton-2013} also demonstrated how the odds are tailored in favor of the most-likely outcome of a match. By performing a similar simulation to that above, the cumulative loss when betting on all least-likely outcomes was significantly higher than when betting on all most-likely outcomes. These results are in agreement with the favorite-longshot bias, whereby low-odds bets generate higher returns than high-odds ones.
+\end{itemize}
