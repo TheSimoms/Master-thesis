@@ -1,0 +1,90 @@
+\section{Measuring the accuracy of a prediction model}
+\label{sec:background-rps}
+
+Measuring the accuracy of a prediction model is a crucial part of its validation \citep{bib:constantinou-fenton-neil-2012}. There are several ways of evaluating the accuracy of a prediction model, with different degrees of quality.
+
+\citet{bib:constantinou-fenton-2012} present five scoring rules, and show why they are not able to correctly evaluate the accuracy of two hypothetical prediction models. They then present the \gls{rps}, an alternative scoring rule. The study presents two prediction models, $\alpha$ and $\beta$, and their predicted probabilities for the outcomes of five hypothetical matches, numbered $1-5$. \cref{tab:rps-matches} shows the five matches together with the predicted probability distributions for the two models. As can be seen from the figure, model $\alpha$ produces the best prediction for all five matches.
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| C | C | C | C | C | C | C |}
+        \hline
+        \textbf{Match}  & \textbf{Model}    & \textbf{p(H)} & \textbf{p(D)} & \textbf{p(A)} & \textbf{Result}   & \textbf{'Best model'} \\\hline
+        1               & $\alpha$          & 1             & 0             & 0             & H                 & $\alpha$ \\\hline
+                        & $\beta$           & 0.9           & 0.1           & 0             &                   &  \\\hline
+        2               & $\alpha$          & 0.8           & 0.1           & 0.1           & H                 & $\alpha$ \\\hline
+                        & $\beta$           & 0.5           & 0.25          & 0.25          &                   &  \\\hline
+        3               & $\alpha$          & 0.35          & 0.3           & 0.35          & D                 & $\alpha$ \\\hline
+                        & $\beta$           & 0.6           & 0.3           & 0.1           &                   &  \\\hline
+        4               & $\alpha$          & 0.6           & 0.3           & 0.1           & H                 & $\alpha$ \\\hline
+                        & $\beta$           & 0.6           & 0.1           & 0.3           &                   &  \\\hline
+        5               & $\alpha$          & 0.5           & 0.45          & 0.05          & H                 & $\alpha$ \\\hline
+                        & $\beta$           & 0.55          & 0.10          & 0.35          &                   &  \\\hline
+    \end{tabulary}
+    \caption{Predicted probabilities by the two hypothetical prediction models, $\alpha$ and $\beta$, for five hypothetical matches. Taken from \citet{bib:constantinou-fenton-2012}.}
+    \label{tab:rps-matches} 
+\end{table}
+
+\citeauthor{bib:constantinou-fenton-2012} give the following reasons as to why model $\alpha$ is the best model:
+\begin{itemize}
+    \item \textbf{Match 1:} Model $\alpha$ predicts the correct outcome with total certainty, and must therefore score higher than model $\beta$.
+    \item \textbf{Match 2:} Both models assign the highest probability to the correct outcome, with the two other outcomes evenly distributed. Since model $\alpha$ assigns the correct outcome a higher probability than model $\beta$, model $\alpha$ must score higher.
+    \item \textbf{Match 3:} Both models assign the same probability to the correct outcome. Still, model $\alpha$ is more accurate, as its overall distribution of probabilities is more indicative of a draw than that of model $\beta$.
+    \item \textbf{Match 4:} Both models assign the same probability to the correct outcome. Still, model $\alpha$ is more accurate, as its overall distribution of probabilities is more indicative of a home win than that of model $\beta$.
+    \item \textbf{Match 5:} Even though model $\alpha$ predicts the correct outcome with a lower probability than $\beta$, the distribution of model $\alpha$ is more indicative of a home win than that of model $\beta$. According to \citeauthor{bib:constantinou-fenton-2012}, this is easily explained by considering a gambler who is confident that the home team will not lose, and seeks to place a \textit{lay} bet (a bet that is successful if the home team wins, or the match ends with a draw). If $\alpha$ and $\beta$ are forecasts by two different bookmakers, bookmaker $\alpha$ will pay less for the winning bet.
+\end{itemize}
+
+\cref{tab:rps-comparison} shows how five different scoring rules score models $\alpha$ and $\beta$. A check mark indicates that the scoring rule correctly considers model $\alpha$ more accurate than model $\beta$. A single cross indicates that the scoring rule incorrectly considers the models equally accurate. Two crosses indicate that the scoring rule incorrectly considers model $\beta$ more accurate than model $\alpha$.
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| C | C | C | C | C | C |}
+        \hline
+        \textbf{Match (model)} & \textbf{Binary Decision Score}     & \textbf{Brier Score}  & \textbf{Geometric Mean Score} & \textbf{Information Loss Score}   & \textbf{MLLE Score}   \\\hline
+        1                       & \cmark                            & \cmark                & \cmark                        & \cmark                            & \cmark                \\
+        ($\alpha$)              & 1                                 & 0                     & 1                             & 0                                 & 0                     \\
+        ($\beta$)               & 0                                 & 0.02                  & 0.9                           & 0.152                             & -0.1054               \\\hline
+        2                       & \xmark                            & \cmark                & \cmark                        & \cmark                            & \cmark                \\
+        ($\alpha$)              & 1                                 & 0.06                  & 0.8                           & 0.3219                            & -0.2231               \\
+        ($\beta$)               & 1                                 & 0.375                 & 0.5                           & 1                                 & -0.6931               \\\hline
+        3                       & \xmark                            & \cmark                & \xmark                        & \xmark                            & \xmark                \\
+        ($\alpha$)              & 0                                 & 0.735                 & 0.3                           & 1.7369                            & -1.2039               \\
+        ($\beta$)               & 0                                 & 0.86                  & 0.3                           & 1.7369                            & -1.2039               \\\hline
+        4                       & \xmark                            & \xmark                & \xmark                        & \xmark                            & \xmark                \\
+        ($\alpha$)              & 1                                 & 0.26                  & 0.6                           & 0.7369                            & -0.5108               \\
+        ($\beta$)               & 1                                 & 0.26                  & 0.6                           & 0.7369                            & -0.5108               \\\hline
+        5                       & \xmark                            & \xmark\xmark          & \xmark\xmark                  & \xmark\xmark                      & \xmark\xmark          \\
+        ($\alpha$)              & 1                                 & 0.455                 & 0.5                           & 1                                 & -0.6931               \\
+        ($\beta$)               & 1                                 & 0.335                 & 0.55                          & 0.8625                            & -0.5978               \\\hline
+    \end{tabulary}
+    \caption{Comparison of different scoring rules. Taken from \citet{bib:constantinou-fenton-2012}.}
+    \label{tab:rps-comparison} 
+\end{table}
+
+\cref{eq:rps-equation-original} presents the \gls{rps}, introduced by \citet{bib:epstein1969scoring}.
+\begin{equation}
+    RPS = \frac{1}{r-1} \sum_{i=0}^{r-1} \bigg( \sum_{j=0}^{i} (p_{j} - e_{j}) \bigg) ^ {2},
+    \label{eq:rps-equation-original}
+\end{equation}
+where $r$ is the number of outcomes ($r = 3$ for football matches), $p_{j}$ the predicted probability for outcome $j$, and $e_{j}$ the observed value for outcome $j$ (1 if $j$ is the observed outcome, 0 otherwise). 
+
+The \gls{rps} calculates the difference between the cumulative distributions of the predicted and observed probabilities. Lower scores indicate better predictions. \cref{tab:rps-rps-scores} shows the calculated \gls{rps} values for the predictions of model $\alpha$ and model $\beta$. As can be seen from the table, \gls{rps} correctly considers model $\alpha$ more accurate than model $\beta$ for all matches.
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| C | C | C | C | C |}
+        \hline
+        \textbf{Match}  & \textbf{Model}    & $\sum_{j=0}^{i=0,1,2} p_{j}$  & $\sum_{j=0}^{i=0,1,2} e_{j}$  & \textbf{\gls{rps}}   \\\hline
+        1               & $\alpha$          & 1, 1, 1                       & 1, 1, 1                       & (0.0000) \\
+                        & $\beta$           & 0.90, 1, 1                    & 1, 1, 1                       & 0.0050 \\\hline
+        2               & $\alpha$          & 0.80, 0.90, 1                 & 1, 1, 1                       & (0.0250) \\
+                        & $\beta$           & 0.50, 0.75, 1                 & 1, 1, 1                       & 0.1562 \\\hline
+        3               & $\alpha$          & 0.35, 0.65, 1                 & 0, 1, 1                       & (0.1225) \\
+                        & $\beta$           & 0.60, 0.90, 1                 & 0, 1, 1                       & 0.1850 \\\hline
+        4               & $\alpha$          & 0.60, 0.90, 1                 & 1, 1, 1                       & (0.0850) \\
+                        & $\beta$           & 0.60, 0.70, 1                 & 1, 1, 1                       & 0.1250 \\\hline
+        5               & $\alpha$          & 0.50, 0.95, 1                 & 1, 1, 1                       & (0.1262) \\
+                        & $\beta$           & 0.55, 0.65, 1                 & 1, 1, 1                       & 0.1625 \\\hline
+    \end{tabulary}
+    \caption{RPS values for the predictions of model $\alpha$ and model $\beta$. Taken from \citet{bib:constantinou-fenton-2012}.}
+    \label{tab:rps-rps-scores} 
+\end{table}
+
+When using \gls{rps} to evaluate a prediction model over several matches, \citet{bib:constantinou-fenton-2012} suggest using either the arithmetic mean over the individual scores, or the total of the individual scores.

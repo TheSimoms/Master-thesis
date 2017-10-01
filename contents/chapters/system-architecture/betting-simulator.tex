@@ -1,1 +1,32 @@
 \section{Betting simulator}
+
+To test the profitability of the prediction models evaluated in this report, a betting simulator was created.
+
+The betting simulator simulates one season of a given tournament. The matches for the given season are grouped into ordered game weeks, like in real life. Odds from several bookmakers are considered when deeming bets feasible, and when placing bets.
+
+Each simulation starts with a given bankroll. \cref{alg:betting-simulation-procedure} shows the steps taken during the betting simulation.
+\begin{algorithm}
+    \caption{Betting simulation procedure \label{alg:betting-simulation-procedure}}
+    set bankroll, $C$, to initial bankroll size\;
+    \For{game week $\in$ season}{
+        \For{match $\in$ game week}{
+            calculate match outcome probability distribution\;
+            \For{outcome $i \in \{0, 1, 2\}$}{
+                fetch all available odds for outcome $i$, $d_{ij}$, from bookmakers $j \in \{1, ..., N\}$\;
+                find the highest odds, $max\{d_{ij}\}$, and the bookmaker $j$ offering it\;
+                calculate the mean odds, $\overline{d_{ij}}$\;
+                \If{bet is feasible, that is $\overline{d_{i}} * P_{i} > 1 + \tau$}{
+                    place bet of size $c_{i}$ at bookmaker $j$ offering the highest odds\;
+                    update bankroll, removing bet size, $C = C - c_{i}$\;
+                }
+            }
+        }
+        \For{placed bets}{
+            \If{bet is successful}{
+                update bank roll, adding gain from bet, $C = C + d_{ij} * c_{i}$
+            }
+        }
+    }
+\end{algorithm}
+
+According to the findings of \citet{bib:vlastakis-dotsis-markellos-2009}, the European betting marked is inefficient. That is, some bookmakers offer unreasonable high odds, not representative of the overall betting market. This is the reason why mean odds are considered when deeming bets feasible.

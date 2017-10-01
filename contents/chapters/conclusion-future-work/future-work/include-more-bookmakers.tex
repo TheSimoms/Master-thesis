@@ -1,0 +1,37 @@
+\subsection{Include more bookmakers}
+
+As of now, the betting simulator only considers odds offered by seven bookmakers. This was mostly done for simplicity, as the historical match data presented at \citet{bib:football-data} only contains 1X2 odds from seven bookmakers. The data from \citet{bib:football-data} was used as it is neatly stored in CSV files, and can easily be fetched without scraping any web page.
+
+In the future, one should look into other web sites offering odds history, such as \citet{bib:odds-portal}. \citet{bib:odds-portal} shows odds from more than 50 bookmakers (as of June 2017). For the match between Arsenal and Manchester United May 7, 2017, the \citet{bib:odds-portal} present odds from 55 bookmakers. The average odds offered were 2.09, 3.49, and 3.56 for home victory, draw, and away victory, respectively, whilst the highest odds were 2.16, 3.64, and 3.72.
+
+
+\subsubsection{Exploiting arbitrage opportunities}
+
+A way of securing extra profits is to exploit arbitrage opportunities. Arbitrage opportunities occur when the odds offered by different bookmakers vary enough to guarantee a profit. This method might go a bit beyond the scope of this report, as is does not require any prediction model. Nonetheless, it can still be used to increase the profitability of the system.
+
+For the match between Arsenal and Everton May 21, 2017, the maximum available odds were 1.42, 6.20, 9.80, for home victory, draw, and away victory, respectively. The expected gain of the betting market was $\frac{1}{1.42} + \frac{1}{6.20} + \frac{1}{9.80} - 1 = -0,032$. The betting market was expected to suffer losses of $3.2\%$.
+
+If the betting marked is expected to suffer losses, arbitrage is possible. \cref{alg:arbitrage-procedure} shows how to secure profits from arbitrage.
+\begin{algorithm}
+    \caption{How to secure profits from arbitrage \label{alg:arbitrage-procedure}}
+    set desired total winnings, $C$\;
+    \For{outcome $i \in \{0, 1, 2\}$}{
+        place bet of size $C / d_{i}$ on outcome $i$
+    }
+\end{algorithm}
+
+\cref{tab:future-work-arbitrage-example} shows how one could guarantee a profit for the match between Arsenal and Everton May 21, 2017. The desired total winnings, $C$, is set to 100 units.
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| L | L | L | L |}
+        \hline
+                            & \textbf{Home victory} & \textbf{Draw}             & \textbf{Away victory} \\\hline
+        Best odds           & 1.42                  & 6.20                      & 9.80                  \\\hline
+        Stake               & $100 / 1.42 = 70.42$  & $100 / 6.20 = 16.13$      & $100 / 9.80 = 10.20$  \\\hline
+        Profit if win       & 29.58                 & 83.88                     & 90.16                 \\\hline
+        Lost stakes         & 26.33                 & 80.62                     & 86.55                 \\\hline
+        Total profit if win & 3.25                  & 3.25                      & 3.61                  \\\hline
+    \end{tabulary}
+    \caption{How to guarantee a profit for the match between Arsenal and Everton May 21, 2017.}
+    \label{tab:future-work-arbitrage-example} 
+\end{table}

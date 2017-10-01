@@ -1,47 +1,59 @@
-\usepackage[hidelinks]{hyperref}
-\usepackage{lipsum}
-\usepackage[linedheaders,parts,pdfspacing,dottedtoc]{classicthesis}
-\usepackage{amsmath}
-\usepackage{mathtools}
-\usepackage{amsthm}
-\usepackage[acronym,toc]{glossaries}
-\usepackage{pdflscape}
-\usepackage{wrapfig}
-\usepackage{chngcntr}
-\usepackage[top=1in, bottom=1.5in, left=1.5in, right=1.5in]{geometry}
-\usepackage{parskip} % For spacing between paragraphs
-
-\usepackage[utf8]{inputenc} % For Norwegian characters
-\usepackage[english]{babel}
-\usepackage{pifont} % For extra symbols
-\usepackage[useregional]{datetime2}
-
-\usepackage{tabulary}
-\usepackage{float}
+\usepackage[lmargin=25mm,rmargin=25mm,tmargin=27mm,bmargin=30mm]{geometry}
+\usepackage{setspace}
 \usepackage{graphicx}
-\usepackage{minted} % For nice appendix page
-\usepackage[toc, page]{appendix} % For nice appendix page
-\usepackage{verbatim} % Imported for multi-line comments
-\usepackage{multirow}
-\usepackage{booktabs}
-\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{amsmath}
 \usepackage{color}
-\usepackage{pdfpages}
+\usepackage[Lenny]{fncychap}
+\usepackage[pdftex,bookmarks=true]{hyperref}
+\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black
+}
+\usepackage[font=small,labelfont=bf,list=true,listformat=simple]{caption}
+\usepackage{fancyhdr}
+\usepackage{times}
+\usepackage{float}
 
-\usepackage[nottoc]{tocbibind}
-
-\usepackage{csquotes}
 \usepackage[
 backend=biber,
 natbib=true,
 citestyle=authoryear
 ]{biblatex}
 
-\usepackage[T1]{fontenc}
-\usepackage{textcomp}
-\usepackage{gensymb}
+\usepackage{listings} % For code listings
+\usepackage{chngcntr} % To change counters
 
-\usepackage[nodayofweek]{datetime}
+\usepackage[utf8]{inputenc} % utf-8 support
 
-\usepackage{caption}
-\usepackage{subcaption}
+\usepackage{tocbibind} % Adding toc, lists of tables, and figures to toc
+\usepackage[acronym,nonumberlist,toc]{glossaries} % Abbreviations
+
+\usepackage{minted} % For nice appendix page
+\usepackage[toc, page]{appendix} % For nice appendix page
+
+\usepackage{tabulary} % Tabulary
+
+\usepackage[nodayofweek,level]{datetime} % To print dates
+\usepackage{mathtools} % Math tools
+\usepackage{pifont} % For extra symbols
+
+% For landscape
+\usepackage{pdflscape}
+
+\usepackage{algorithm2e} % Pseudo code
+
+\usepackage{tikz} % To draw figures
+
+\usepackage[inline]{enumitem} % To remove item step in itemize
+
+\usepackage{xcolor, colortbl} % For extra color support
+
+\usepackage{placeins} % To make sure figures stays in their section
+
+\usepackage[noabbrev,capitalize]{cleveref} % For clever references

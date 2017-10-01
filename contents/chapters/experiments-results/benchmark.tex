@@ -1,0 +1,31 @@
+\section{Benchmark values}
+
+To properly evaluate the networks evaluated in this report, we need some benchmark values. The benchmark values indicate the absolute minimum of what the networks should achieve.
+
+A natural benchmark model is based on the home ground advantage. Of all matches played in the English Premier League August 2009 though May 2015, 46.46\% ended with a home victory, 25.45\% ended draw, and 28.09\% ended with an away victory. \cref{tab:results-benchmark-only-home} shows the \gls{rps} values achieved when predicting all matches in the 2015-2016 and 2016-2016 seasons with the probability distribution [0.4646, 0.2545, 0.2809].
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| L || L | L | L |}
+        \hline
+                        & \multicolumn{3}{ l |}{\textbf{\gls{rps} values}}  \\\hline
+        \textbf{Season} & \textbf{Min}  & \textbf{Max}  & \textbf{Mean}     \\\hline
+        2015-2016       & 0.141         & 0.355         & 0.227             \\\hline
+        2016-2017       & 0.145         & 0.360         & 0.227             \\\hline
+    \end{tabulary}
+    \caption{RPS values achieved when predicting all matches with the same probability distribution, [0.4646, 0.2545, 0.2809].}
+    \label{tab:results-benchmark-only-home} 
+\end{table}
+
+Another potential benchmark model is to use the implied probabilities of the bookmakers. The networks are, after all, trying to beat the bookmakers, and not the home ground advantage. \cref{tab:results-benchmark-implied-probabilities} shows the \gls{rps} values achieved when assigning the average implied probabilities of a match as its probability distribution. Using the implied probabilities achieved the best results, and will therefore be used as benchmark values.
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| L || L | L | L |}
+        \hline
+                        & \multicolumn{3}{ l |}{\textbf{\gls{rps} values}}  \\\hline
+        \textbf{Season} & \textbf{Min}  & \textbf{Max}  & \textbf{Mean}     \\\hline
+        2015-2016       & 0.0333        & 0.683         & 0.210             \\\hline
+        2016-2017       & 0.0187        & 0.733         & 0.192             \\\hline
+    \end{tabulary}
+    \caption{RPS values achieved when predicting all matches with the probability distribution formed by the bookmaker's implied probabilities.}
+    \label{tab:results-benchmark-implied-probabilities} 
+\end{table}

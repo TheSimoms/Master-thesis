@@ -1,0 +1,81 @@
+\section{Looking behind the results}
+
+The team characteristics network achieved the best overall results over the two seasons. The first season, it was clearly the most profitable network. The second season, it was barely beaten by the team characteristics and strengths network. By analyzing the odds-probability graphs for the team characteristics network, there are some clear patterns that might help increase the profitability further.
+
+
+\subsection{Placing no more than one bet per match}
+
+\cref{tab:results-game-week-5-bets-example} shows all bets deemed feasible by a random instance of the team characteristics model during a random game week of the 2016-2017 season. Of the nine matches, a double bet was placed on four. That gives four bets that are guaranteed to fail. This pattern can be seen throughout all simulations, and is not specific for the highlighted game week alone.
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| L | L | L | L | L |}
+        \hline
+        \textbf{Match}                      & \textbf{Predicted outcome}    & \textbf{Odds} & \textbf{Probability} \\\hline
+        Tottenham 1 - 0 Sunderland          & A                             & 12.00         & 0.15 \\\hline
+        Crystal Palace 4 - 1 Stoke          & A                             & 4.20          & 0.35 \\\hline
+        Southampton 1 - 0 Swansea           & A                             & 6.17          & 0.28 \\\hline
+        Watford 3 - 1 Manchester United     & H                             & 6.00          & 0.25 \\\hline
+        Watford 3 - 1 Manchester United     & D                             & 4.20          & 0.28 \\\hline
+        Everton 3 - 1 Middlesbrough         & A                             & 6.19          & 0.19 \\\hline
+        Hull 1 - 4 Arsenal                  & H                             & 6.50          & 0.25 \\\hline
+        Hull 1 - 4 Arsenal                  & D                             & 4.20          & 0.29 \\\hline
+        Leicester 3 - 0 Burnley             & D                             & 4.60          & 0.27 \\\hline
+        Leicester 3 - 0 Burnley             & A                             & 8.87          & 0.32 \\\hline
+        Manchester City 4 - 0 Bournemouth   & D                             & 6.25          & 0.19 \\\hline
+        Manchester City 4 - 0 Bournemouth   & A                             & 12.78         & 0.16 \\\hline
+        Chelsea 1 - 2 Liverpool             & H                             & 2.30          & 0.54 \\\hline
+    \end{tabulary}
+    \caption{Bets deemed feasible by an instance of the team characteristics model. From game week 5 of the 2016-2017 season.}
+    \label{tab:results-game-week-5-bets-example} 
+\end{table}
+
+To reduce the losses from placing more than one bet on a single match, one option is to only place the bet with the highest predicted probability. \cref{tab:results-single-bet-safest} shows how the average \gls{roi} values for the four strategies were affected when only placing the bet with the highest predicted probability. As the results show, only placing the "safest" bet reduced the profitability of the network.
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| L || L | L | L | L |}
+        \hline
+                            & \multicolumn{2}{l |}{\textbf{2015-2016}}      & \multicolumn{2}{l |}{\textbf{2016-2017}} \\\hline
+        \textbf{Strategy}   & \textbf{All feasible} & \textbf{Only best}    & \textbf{All feasible} & \textbf{Only best} \\\hline
+        Fixed bet           & 0.21                  & 0.10                  & 0.13                  & 0.12 \\\hline
+        Fixed return        & -0.050                & -0.051                & 0.080                 & 0.065 \\\hline
+        Kelly ratio         & 0.80                  & 0.43                  & 0.70                  & 0.68 \\\hline
+        Variance Adjusted   & -0.032                & -0.051                & 0.12                  & 0.090 \\\hline
+    \end{tabulary}
+    \caption{The effect of only allowing one bet per match. Only the bet with the highest predicted probability is placed. For the team characteristics network.}
+    \label{tab:results-single-bet-safest} 
+\end{table}
+
+Another option is to only place the bet with the highest expected gain, $P_{i} * d_{i}$. \cref{tab:results-single-bet-best} shows how the average \gls{roi} values for the four strategies were affected when only placing the bet with highest expected gain. Only placing the bet with highest expected gain increased the profitability of the network slightly.
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| L || L | L | L | L |}
+        \hline
+                            & \multicolumn{2}{l |}{\textbf{2015-2016}}      & \multicolumn{2}{l |}{\textbf{2016-2017}} \\\hline
+        \textbf{Strategy}   & \textbf{All feasible} & \textbf{Only best}    & \textbf{All feasible} & \textbf{Only best} \\\hline
+        Fixed bet           & 0.21                  & 0.22                  & 0.13                  & 0.13 \\\hline
+        Fixed return        & -0.050                & -0.010                & 0.080                 & 0.085 \\\hline
+        Kelly ratio         & 0.80                  & 1.0                   & 0.70                  & 0.72 \\\hline
+        Variance Adjusted   & -0.032                & -0.030                & 0.12                  & 0.14 \\\hline
+    \end{tabulary}
+    \caption{The effect of only allowing one bet per match. Only the bet with highest expected gain is placed. For the team characteristics network.}
+    \label{tab:results-single-bet-best} 
+\end{table}
+
+
+\subsection{Setting an odds limit}
+
+By looking at \cref{fig:results-team-characteristics-2015-2016-odds-prob} and \cref{fig:results-team-characteristics-2016-2017-odds-prob}, one can see that hardly any bets with odds above 13 are successful. That goes for both seasons. By rejecting bets with odds above 13, the profitability of the network is increased. \cref{tab:results-odds-limit} shows how the average \gls{roi} values for the four strategies were affected. Every strategy, over both seasons, had increased profits.
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| L || L | L | L | L |}
+        \hline
+                            & \multicolumn{2}{l |}{\textbf{2015-2016}}  & \multicolumn{2}{l |}{\textbf{2016-2017}} \\\hline
+        \textbf{Strategy}   & \textbf{No limit} & \textbf{Max odds 13}  & \textbf{No limit} & \textbf{Max odds 13} \\\hline
+        Fixed bet           & 0.21              & 0.24                  & 0.13              & 0.20 \\\hline
+        Fixed return        & -0.050            & -0.030                & 0.080             & 0.11 \\\hline
+        Kelly ratio         & 0.80              & 0.92                  & 0.70              & 0.9 \\\hline
+        Variance Adjusted   & -0.032            & -0.028                & 0.12              & 0.13 \\\hline
+    \end{tabulary}
+    \caption{The effect of only allowing bets with odds less than 13. For the team characteristics network.}
+    \label{tab:results-odds-limit} 
+\end{table}

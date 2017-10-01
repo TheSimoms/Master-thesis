@@ -1,0 +1,37 @@
+\section{Comparing the results}
+
+\cref{tab:results-model-comparison-2015-2016,tab:results-model-comparison-2016-2017} show the average \gls{roi} for every combination of network and strategy for the two seasons.
+
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| L || L |  L |  L |  L | L |  L |  L |  L |}
+        \hline
+        \textbf{Network}                    & \textbf{Fixed bet}        & \textbf{Fixed return}     & \textbf{Kelly ratio}      & \textbf{Variance adjusted} \\\hline
+        Player ratings                      & \cellcolor{correct} 0.068 & -0.040                    & \cellcolor{correct} 0.25  & -0.073 \\\hline
+        Head to head                        & \cellcolor{correct} 0.40  & \cellcolor{correct} 0.025 & \cellcolor{correct} 2.0   & -0.0080 \\\hline
+        Previous meetings                   & \cellcolor{correct} 0.25  & -0.012                    & \cellcolor{correct} 1.2   & -0.052 \\\hline
+        Team characteristics                & \cellcolor{correct} 0.21  & -0.050                    & \cellcolor{correct} 0.80  & -0.032 \\\hline
+        Team characteristics and strengths  & \cellcolor{correct} 0.12  & -0.025                    & \cellcolor{correct} 0.49  & -0.052 \\\hline
+    \end{tabulary}
+    \caption{Comparison of the average \gls{roi} values for the networks. From the 2015-2016 season. Colored cells indicate profitable strategies.}
+    \label{tab:results-model-comparison-2015-2016} 
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabulary}{\textwidth}{| L || L |  L |  L |  L | L |  L |  L |  L |}
+        \hline
+        \textbf{Network}                    & \textbf{Fixed bet}        & \textbf{Fixed return}     & \textbf{Kelly ratio}      & \textbf{Variance adjusted} \\\hline
+        Player ratings                      & -0.59                     & -0.095                    & -1.0                      & -0.053 \\\hline
+        Head to head                        & -0.20                     & -0.018                    & -1.0                      & -0.060 \\\hline
+        Previous meetings                   & -0.34                     & -0.050                    & -1.0                      & -0.022 \\\hline
+        Team characteristics                & \cellcolor{correct} 0.13  & \cellcolor{correct} 0.080 & \cellcolor{correct} 0.70  & \cellcolor{correct} 0.12 \\\hline
+        Team characteristics and strengths  & \cellcolor{correct} 0.17  & \cellcolor{correct} 0.080 & \cellcolor{correct} 0.80  & \cellcolor{correct} 0.13 \\\hline
+    \end{tabulary}
+    \caption{Comparison of the average \gls{roi} values for the networks. From the 2016-2017 season. Colored cells indicate profitable strategies.}
+    \label{tab:results-model-comparison-2016-2017}
+\end{table}
+
+Only two networks were able to generate a profit over both seasons: the networks based on team characteristics. The other networks produced varying results. The head to head network generated huge profits for the first season (40\% on average using the fixed bet strategy, and 200\% on average using the Kelly ratio strategy), while suffering losses the second season (20\% on average using the fixed bet strategy, and going bankrupt for all instances using the Kelly ratio strategy).
+
+The Kelly ratio strategy generated the highest profits, with good margin. The Kelly ratio strategy is, however, the only strategy that went bankrupt. When using the Kelly ratio strategy together with the player ratings network, all model instances were bankrupt within the eight first game weeks. The Kelly ratio strategy offers a high risk, high reward investment. The fixed return and variance adjusted strategies generated more stable results, losing at most 17\%, and no more than 10\% on average. The average profits were however not anywhere near the profits of the Kelly ratio strategy, with best average profits of 13\% and 8\%, respectively. The fixed bet strategy performed somewhere in-between the other strategies. For the worst performing networks, the fixed bet strategy suffered some huge losses. 78\% of the initial bankroll was lost when used by the player ratings network during the 2016-2017 season. For the team characteristics based networks, the fixed bet strategy performed significantly better, losing at most 25\% of the initial bankroll, with average profits of well above 10\%.

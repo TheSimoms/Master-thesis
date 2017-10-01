@@ -1,0 +1,21 @@
+\subsection{Head to head}
+\label{subsec:head-to-head}
+
+The idea behind this network is to capture match history and the home ground advantage. The network is inspired by the earlier works presented in \cref{sec:background-models}.
+
+
+\subsubsection{Input}
+
+The network takes in a \textit{PreviousMeetings} (see: \cref{subsec:database-overview-matches}) object containing information about the last matches played at the home team ground.
+
+For each match, the following values are added to the model input:
+\begin{itemize}[noitemsep]
+    \item Distribution of outcomes over the previous registered matches. For each of the three outcomes, the number of occurrences of the outcome is divided by the total number of matches.
+    \item Distribution of goals over the previous registered matches. The number of goals scored by the home team, divided by the total number of goals scored, and the number of goals scored by the away team, divided by the total number of goals scored.
+\end{itemize}
+
+For the match between Arsenal and Manchester United May 7, 2017, the input values would be as follows:
+\begin{lstlisting}[language=Python]
+    [1/3, 1/3, 1/3, 7/12, 5/12]
+\end{lstlisting}
+Over the last six matches, Arsenal has won two, Manchester United has won two, and there has been two draws. Arsenal has scored seven goals, and Manchester United has scored five.

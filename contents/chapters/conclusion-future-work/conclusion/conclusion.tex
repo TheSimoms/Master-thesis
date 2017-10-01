@@ -1,0 +1,33 @@
+\section{Conclusion}
+
+This report presents a purely data-driven system for predicting football match outcomes, and for placing bets based on the predictions. The system stores large amounts of data that is easy to incorporate into the prediction model. The report shows that, even though football is a sport involving a lot of uncertainty and luck, it is possible to beat the  betting market over the span of two consecutive seasons.
+
+
+\subsection{Model performance}
+
+The results from \cref{chp:experiments-results} show that the choice of model input is crucial to the model's accuracy and profitability. When comparing the head to head network with the previous meetings network, it becomes apparent that simple assumptions sometimes are enough, and that there might be no need to build a complex network. The same goes for the team characteristics network versus the team characteristics and strengths network.
+
+The team characteristics model performed significantly better than most models presented in \cref{sec:background-models}. Both \citet{bib:koopman-lit-2015} and \citet{bib:rue-salvesen-2000} generated profits well below the profits the team characteristics generated using the Kelly ratio strategy. However, when using the same strategies as the two other models, namely the fixed bet strategy and variance adjusted strategy, respectively, the team characteristics model did not perform as well. This highlights the importance of matching prediction model and betting strategy.
+
+The model presented by \citet{bib:constantinou-fenton-neil-2012} performed best of the models explored in \cref{sec:background-models}. Using the same configuration: maximum odds and fixed bet strategy, the pi-football model performed significantly better than the team characteristics model (\gls{roi} of 0.83 versus 0.17). However, the team characteristics model performed better using the Kelly ratio strategy, achieving an average \gls{roi} of 0.75.
+
+
+\subsection{The betting strategies}
+
+The four betting strategies explored in this report can be compared to any other investment strategy. Strategies involving high risk have high potential gain, and at the same time higher chance of suffering losses. Strategies involving low risk have a lower probability of suffering losses, but at the same time lower potential gains. The Kelly ratio strategy is definitely the high-risk strategy, sometimes achieving impressive \gls{roi}, and sometimes going bankrupt. The fixed return strategy and variance adjusted strategy are more low-risk strategies, reducing the bet size for low-probability bets. The fixed bet strategy in an intermediate option, always placing bets of the same size. For the fixed bet, fixed return, and variance adjusted strategies to work, the prediction model needs to produce probabilities that closely match the implied probabilities of the bookmakers. The Kelly ratio strategy can to a greater extent survive on lucky strikes, generating a lot of profit.
+
+
+\subsection{Applying the predictions in the betting market}
+
+The most profitable prediction model, the team characteristics model, was able to generate an impressive average \gls{roi} of 0.75 over the two seasons using the Kelly ratio strategy. It should be noted that one instance of the network lost almost 50\% of the initial investment over one season using the same strategy. The safer strategies, fixed return and variance adjusted, achieved average \glspl{roi} of 0.015 and 0.044, respectively. The intermediate strategy, fixed bet, achieved an average \gls{roi} of 0.17, while never losing more than 10\% of the initial investment.
+
+
+\subsection{Fulfillment of goal, and answering research questions}
+
+\cref{sec:goal-research-questions} presented the goal of the report, along with two research questions stated in order to achieve the goal.
+
+The first research question was to find out what a priori knowledge concerning a football can be fed to an \gls{ann} in order to predict the match outcome. \cref{chp:experimental-setup} presents three data sources used for predicting match outcomes: player ratings, previous meetings between the teams, and team characteristics. The data sources are used to form five different \glspl{ann}. The data sources utilized in this report are only three of many sources, but as \cref{chp:experiments-results} shows, a single data source is enough to predict the outcome of a football match with up to 60\% certainty.
+    
+The second research question asked how the outcome predictions can be used for generating a profit in betting. More specifically, how the choice of betting strategy affect the profitability of the network. \cref{chp:experiments-results} highlights the importance of matching prediction model and betting strategy correctly. Some combinations, as the team characteristics network and Kelly ratio strategy, can generate huge profits. Other combinations, on the other hand, as the player ratings network and fixed bet strategy, are catastrophic.
+
+By answering the two research questions, the goal of the report has been fulfilled. The report shows that \glspl{ann} can indeed be used in order to profit from betting.

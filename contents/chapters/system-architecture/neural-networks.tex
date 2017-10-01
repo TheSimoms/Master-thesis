@@ -1,1 +1,127 @@
-%\section{Neural networks}
+\section{Neural networks}
+
+During the experiments conducted in this report, several \glspl{ann} have been explored. As almost all the different networks had the same basic structure, with identical loss functions, optimizer functions, accuracy measures, data sources, etc., the need to re-use the source code soon emerged. To solve this, an abstract network class supporting all the basic functionality was constructed. The abstract network class was implemented with modularity, extensibility, customizability, and ease of use in mind. 
+
+\subsection{The abstract network class}
+
+The abstract network class contains all the basic functionality needed in order to train and evaluate an \gls{ann}, along with procedures to fetch pre-trained models and use them for prediction of new observations. The abstract network class takes care of everything not problem specific, such as generating training, validation, evaluating, and prediction data sets, storing and handling trained models, storing data sets, etc. 
+
+The abstract network class uses Keras to handle its network functionality. Keras supplies functionality for constructing, training, and evaluating \glspl{ann}. Keras also supplies functionality for storing and accessing trained models. These models (called model checkpoints) can easily be used for prediction the labels of new observations.
+
+All the different properties of the network class are implemented as functions. By extending the abstract network class, one can easily override the functions to customize the network.
+
+\subsubsection{Network name}
+
+As each network generates its own data set and checkpoints, there is a need to distinguish one network from another. Each network implemented is therefore given an unique name, describing its function. An example is the network \textit{head-to-head-home-to-result}, that predicts match result given the head to head information for the match.
+
+When each network has its own unique identifier, it is easy to store data sets and checkpoints in separate folders. In addition, Keras supports naming the network layers. Each layer in the network needs an unique name. For supporting networks as combination of other networks, all layer names are prefixed with the network name.
+
+\subsubsection{Loss function}
+
+Most of the \glspl{ann} used in the experiments map some input data to a probability distribution for the three possible match outcomes (home victory, draw, away victory). The loss function is therefore set to \textit{sparse categorical crossentropy} as default. Sparse categorical crossentropy is used for categorical classifying, i.e. for assigning a class to an observation, and not for approximating a real numbered value. When using the sparse categorical crossentropy, labels are given as integers. It is then an easy task assigning a label to a match: 0 for home victory, 1 for draw, 2 for away victory.
+
+\subsubsection{Optimizer}
+
+The optimizer is set to Adam \citep{bib:kingma2014adam} as default. Adam is an adaptive optimizer function that offers some extensions to another popular optimizer: RMSProp \citep{bib:hinton2012neural}. Both Adam and RMSProp compute adaptive learning rates, but Adam also utilizes an exponentially decaying average of gradients, similar to a momentum.
+
+\subsubsection{Network layers}
+
+One thing that differs between the networks is the network topology. Most networks have different hidden layer topologies. Therefore, the function that defines the hidden layers must be implemented for each network.
+
+Input data shapes also differ from network to network. The function for defining the network's input layer is implemented, but an own function defining the input data shape is not. Each network defines its own input data shape, and the input layer is generated based on the shape.
+
+The output layer is also defined in an own function. Almost all networks have the same output layer: a fully connected layer of three nodes, activated by the softmax function. The softmax function squeezes a K-dimensional vector of real values into K-dimensional vector of real values in the range $[0, 1]$. The values in the output vector sum to $1$. This makes the softmax function exceptional for probability distributions.
+
+\subsubsection{Setting up the network model}
+
+When the above properties are implemented, the network is ready for model training and outcome prediction.
+
+The input layer is set up as model input. The hidden layers are then iterated and added to the model. Then, the output layer is added. Lastly, the model is set up to use the loss function and optimizer specified.
+
+\subsubsection{Generating input data}
+
+Each network has an unique mapping from match instance to model input data. The function for generating input data must therefore be implemented for each network. However, procedures for storing input data are included in the abstract network class. Storing the input data instead of generating it each time training the network saves quite a lot of time.
+
+
+\subsubsection{Storing and handling trained models}
+
+Every time a network is trained, the results are stored by the abstract network class. Each training run is assigned its own folder on the file system.
+
+Keras has implemented a callback function called \textit{ModelCheckpoint}. This callback function allows for storing model checkpoints during training. The callback function allows for storing only the best model checkpoint (every time the loss value of the validation data set reaches a new minimum). Resorting the checkpoint file is then easily done using Keras' API.
+
+\subsubsection{Storing and handling data sets}
+
+Every time the abstract network class encounters a new match instance, it generates the corresponding model input data. If the match is complete, the input data is added to a dictionary, with the match ID as key. The dictionary is then stored in a file for future use.
+
+If the network encounters a known match, it can simply fetch the model input from the dictionary instead of generating it again.
+
+\subsubsection{Training}
+
+The abstract network class has an own procedure for training the model. The training procedure sets up the network model using the specified topology, loss function, and optimizer. Training data and validation data are then generated using the model input data generation function. The model is then fitted to the training data, and cross validated using the validation set. The training procedure returns the model checkpoint with lowest validation loss.
+
+The training procedure itself is customizable. The number of training epochs and batch size can be changed using run-time arguments. What matches to include in the training data set can also be changed using run-time arguments.
+
+\subsubsection{Evaluating}
+
+The abstract network class also has a procedure for evaluating the model. What season to evaluate is set using run-time arguments. The matches for the given season are fed to the model, and the resulting prediction accuracy is shown. The minimum, maximum, and mean \gls{rps} values are also shown.
+
+\subsubsection{Predicting}
+
+Lastly, the abstract network class has a procedure for predicting match instances. Specific matches to predict can be set using run-time arguments. It is also possible to predict all matches in an entire season. For each match, the probability distribution for the three outcomes are shown.
+
+
+\subsection{Extending the abstract network class}
+
+To construct a valid \gls{ann} using the abstract network class, one must create a class that extends the abstract network class. Four properties must be implemented: network name, model input data shape, hidden network layers, and model input data generation function.
+
+When these four properties are implemented, training and evaluating the model, and predicting the label of new observations can easily be done by instantiating the network class and calling the respective functions on the instance.
+
+\subsubsection{Example using the head-to-head-home-to-result network}
+
+\cref{lst:head-to-head-example} shows the complete class for the head-to-head-home-to-result network. The network takes takes a summary of the recent matches between the teams as model input. The network is further explained in \cref{subsec:head-to-head}.
+
+The \textit{\_\_init\_\_} function takes in the run-time arguments. These arguments are used for generating training, evaluation, and prediction data, and when training the model.
+
+The static function \textit{name} simply returns the name of the network.
+
+The function \textit{input\_shape} defines the shape of the model data. Each match is mapped to a list of five floating point numbers.
+
+The function \textit{default\_layers} defines the hidden layers of the model. The model consists of a single hidden layer, with 32 nodes. The hidden layer is activated using the sigmoid function.
+
+The function \textit{input\_function} maps a match to model input data. Input model data consist of a set of features and a label for each match. A summary of the most recent matches between the teams at the home team venue is fetched. If no such summary exists, the match is skipped, as it does not have the sufficient data for training or predicting. The distributions of match outcomes and goals scored are added as the match's features. The final result is the label of the match.
+
+\begin{lstlisting}[language=Python,caption={The head-to-head-home-to-result network class.},label={lst:head-to-head-example}]
+class HeadToHeadHomeToResultNetwork(AbstractNetwork):
+    def __init__(self, args, layers=None):
+        super().__init__(args, layers)
+
+    @staticmethod
+    def name():
+        return 'head-to-head-home-to-result'
+
+    @property
+    def input_shape(self):
+        return 5,
+
+    @property
+    def filters(self):
+        super_filters = super().filters
+
+        super_filters.update({
+            'previousmeetings__isnull': False,
+        })
+
+        return super_filters
+
+    @property
+    def default_layers(self):
+        return [
+            Dense(32, activation='sigmoid'),
+        ]
+
+    def input_function(self, match, training_data=True):
+        summary = match.previous_meetings.home_vs_away
+
+        if summary is not None:
+            return [*summary.victory_distribution, *summary.goal_distribution], match.final_result
+\end{lstlisting}

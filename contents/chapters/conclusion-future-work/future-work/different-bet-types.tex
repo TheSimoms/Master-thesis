@@ -1,0 +1,17 @@
+\subsection{Allowing different kinds of bets}
+
+As of now, the betting simulator only supports placing \textit{1X2} type bets (bets on a single outcome).
+
+Throughout the experiments in this report, bets have been placed on more than one outcome for several matches. This guarantees that at least one of the bets are unsuccessful. However, the odds are usually high enough to justify the choice.
+
+Most bookmakers offer \textit{double chance} bets. In double chance bets, one choose from three available bets, like in 1X2 bets, but with higher probabilities. The odds are, however, smaller than for single bets. The three available bets are
+\begin{enumerate*}[label={\alph*)}]
+    \item home victory or draw
+    \item away victory or draw, and
+    \item home victory or away victory.
+\end{enumerate*}
+Allowing double chance bets might increase the profitability of the prediction models, if the prediction model strongly suggests an outcome will \textbf{not} occur, and the odds suggest placing a double bet is better than two single bets.
+
+Another bet type supported by most bookmakers is \textit{draw no bet}. In draw no bet type bets, the money is refunded if the match ends with a draw. This might be an alternative to the double chance bets where the predicted probability of a draw is high enough, and the draw no bet odds offered are better than the double chance odds.
+
+Systems with good \gls{rps} values will benefit from both double chance bets and draw no bet type bets. As mentioned in \cref{sec:background-rps}, the \gls{rps} system calculates the difference between the cumulative distributions of the predicted and observed probabilities. If the observed outcome is a home victory, predicting a draw is closer to the correct outcome than what predicting an away victory is. A prediction model that achieves good \gls{rps} values is therefore probably good at knowing what the final outcome will \textbf{not} be. This can be exploited if the corresponding double chance odds are high enough. Draw no bet type bets will be beneficial if the model overestimates the probability of drawn matches.

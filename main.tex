@@ -1,7 +1,7 @@
-\documentclass[
-  footinclude=true,
-  headinclude=true
-]{report}
+%% Master Thesis Template
+%% Please update the specification through this link: https://daim.idi.ntnu.no/howto_thesis_submission.pdf
+
+\documentclass[pdftex,10pt,b5paper,twoside]{book}
 
 
 %========================================================================
@@ -24,25 +24,31 @@
 
 \begin{document}
 
-% Log errors
-\tracingall
 
-% Remove page numbering
-\pagenumbering{gobble}
-
-
-%========================================================================
-%   TITLE PAGE
-%========================================================================
-
-\input{contents/title_page.tex}
+% Set page style for summary, preface, and contents
+\pagenumbering{roman}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\renewcommand{\headrulewidth}{0.1ex}
+\renewcommand{\footrulewidth}{0.1ex}
+\fancyfoot[LE,RO]{\thepage}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[LE,RO]{\thepage}\renewcommand{\headrulewidth}{0ex}}
 
 
 %========================================================================
 %   ABSTRACT
 %========================================================================
 
-\input{contents/abstract.tex}
+\input{contents/summary.tex}
+
+
+%========================================================================
+%   SAMMENDRAG
+%========================================================================
+
+\input{contents/sammendrag.tex}
 
 
 %========================================================================
@@ -53,14 +59,24 @@
 
 
 %========================================================================
-%   TABLE OF CONTENTS
+%   TABLE OF CONTENTS, FIGURES, TABLES, ABBREVIATIONS
 %========================================================================
 
 \input{contents/contents.tex}
 
 
-% Numeric page numbering
+% Reset page style
 \pagenumbering{arabic}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\renewcommand{\headrulewidth}{0.1ex}
+\renewcommand{\footrulewidth}{0.1ex}
+\fancyfoot[LE,RO]{\thepage}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\rightmark}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[LE,RO]{\thepage}\renewcommand{\headrulewidth}{0ex}}
 
 
 %========================================================================
@@ -70,7 +86,6 @@
 \chapter{Introduction}
 \label{chp:introduction}
 \input{contents/chapters/introduction/introduction.tex}
-\input{contents/chapters/introduction/background-motivation.tex}
 \input{contents/chapters/introduction/research-questions.tex}
 \input{contents/chapters/introduction/report-outline.tex}
 
@@ -84,12 +99,13 @@
 \input{contents/chapters/background/introduction.tex}
 \input{contents/chapters/background/models.tex}
 \input{contents/chapters/background/important-variables.tex}
+\input{contents/chapters/background/measuring-model-accuracy.tex}
 \input{contents/chapters/background/applying-to-betting.tex}
 \input{contents/chapters/background/whoscored.tex}
-
+\input{contents/chapters/background/technologies.tex}
 
 %========================================================================
-%   CHAPTER: Theory
+%   CHAPTER: THEORY
 %========================================================================
 
 \chapter{Theory}
@@ -97,8 +113,6 @@
 \input{contents/chapters/theory/introduction.tex}
 \input{contents/chapters/theory/statistical-classification.tex}
 \input{contents/chapters/theory/neural-networks.tex}
-\input{contents/chapters/theory/programming.tex}
-
 
 %========================================================================
 %   CHAPTER: SYSTEM ARCHITECTURE
@@ -112,50 +126,52 @@
 \input{contents/chapters/system-architecture/neural-networks.tex}
 \input{contents/chapters/system-architecture/betting-simulator.tex}
 
+%========================================================================
+%   CHAPTER: EXPERIMENTAL SETUP
+%========================================================================
+
+\chapter{Experimental setup}
+\label{chp:experimental-setup}
+\input{contents/chapters/experimental-setup/introduction.tex}
+\input{contents/chapters/experimental-setup/models/introduction.tex}
+\input{contents/chapters/experimental-setup/models/player-ratings.tex}
+\input{contents/chapters/experimental-setup/models/head-to-head.tex}
+\input{contents/chapters/experimental-setup/models/previous-meetings.tex}
+\input{contents/chapters/experimental-setup/models/team-characteristics.tex}
+\input{contents/chapters/experimental-setup/models/team-characteristics-and-strengths.tex}
+\input{contents/chapters/experimental-setup/betting.tex}
+
 
 %========================================================================
 %   CHAPTER: EXPERIMENTS
 %========================================================================
 
-\chapter{Experiments}
-\label{chp:experiments}
-\input{contents/chapters/experiments/introduction.tex}
-\input{contents/chapters/experiments/models/introduction.tex}
-\input{contents/chapters/experiments/models/player-ratings.tex}
-\input{contents/chapters/experiments/models/head-to-head.tex}
-\input{contents/chapters/experiments/models/previous-meetings.tex}
-\input{contents/chapters/experiments/models/team-characteristics.tex}
-\input{contents/chapters/experiments/betting/introduction.tex}
-\input{contents/chapters/experiments/betting/betting.tex}
+\chapter{Experiments and results}
+\label{chp:experiments-results}
+\input{contents/chapters/experiments-results/introduction.tex}
+\input{contents/chapters/experiments-results/benchmark.tex}
+\input{contents/chapters/experiments-results/player-ratings.tex}
+\input{contents/chapters/experiments-results/head-to-head.tex}
+\input{contents/chapters/experiments-results/previous-meetings.tex}
+\input{contents/chapters/experiments-results/team-characteristics.tex}
+\input{contents/chapters/experiments-results/team-characteristics-and-strengths.tex}
+\input{contents/chapters/experiments-results/model-comparison.tex}
+\input{contents/chapters/experiments-results/looking-behind-the-results.tex}
 
 
 %========================================================================
-%   CHAPTER: RESULTS
+%   CHAPTER: CONCLUSION AND FUTURE WORK
 %========================================================================
 
-\chapter{Results}
-\label{chp:results}
-\input{contents/chapters/results/introduction.tex}
-
-
-%========================================================================
-%   CHAPTER: CONCLUSION
-%========================================================================
-
-\chapter{Conclusion}
-\label{chp:conclusion}
-\input{contents/chapters/conclusion/introduction.tex}
-\input{contents/chapters/conclusion/conclusion.tex}
-
-
-%========================================================================
-%   CHAPTER: FUTURE WORK
-%========================================================================
-
-\chapter{Future work}
-\label{chp:future-work}
-\input{contents/chapters/future-work/introduction.tex}
-\input{contents/chapters/future-work/future-work.tex}
+\chapter{Conclusion and future work}
+\label{chp:conclusion-future-work}
+\input{contents/chapters/conclusion-future-work/introduction.tex}
+\input{contents/chapters/conclusion-future-work/conclusion/conclusion.tex}
+\input{contents/chapters/conclusion-future-work/future-work/introduction.tex}
+\input{contents/chapters/conclusion-future-work/future-work/different-bet-types.tex}
+\input{contents/chapters/conclusion-future-work/future-work/considering-betting-biases.tex}
+\input{contents/chapters/conclusion-future-work/future-work/include-more-bookmakers.tex}
+\input{contents/chapters/conclusion-future-work/future-work/include-other-data.tex}
 
 
 %========================================================================
@@ -169,11 +185,12 @@
 %   APPENDICES
 %========================================================================
 
+% Rename chapter to appendix
+\renewcommand\chaptername{Appendix}
+
 \begin{appendices}
-    % Remove appendix sections from toc
-    \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
-    \input{contents/appendices/whoscored-data-description.tex}
-    \input{contents/appendices/results.tex}
+    \crefalias{chapter}{appendix}\input{contents/appendices/old-results.tex}
+    \crefalias{chapter}{appendix}\input{contents/appendices/whoscored-data-description.tex}
 \end{appendices}
 
 

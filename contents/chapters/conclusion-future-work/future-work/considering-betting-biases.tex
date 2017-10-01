@@ -1,0 +1,5 @@
+\subsection{Considering betting biases}
+
+As mentioned in \cref{subsec:background-betting-biases}, bookmakers are biased. As of now, the betting simulator treats all bets equally, without taking any kind of bias into account.
+
+To take the favorite-longshot into account, one can add a confidence threshold that increases with the odds. The same can be done with the predicted probability for the most-likely/least-likely bias. For the home-away bias, the required confidence needed to place a bet can be higher for away victories.

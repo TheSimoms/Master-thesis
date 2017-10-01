@@ -1,3 +1,60 @@
+\restylefloat{figure}
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\renewcommand{\headrulewidth}{0.1ex}
+\renewcommand{\footrulewidth}{0.1ex}
+
+
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[LE,RO]{\thepage}\renewcommand{\headrulewidth}{0ex}}
+
+
+% Document information
+\title{Beating the bookmakers}
+\author{Simon Borøy-Johnsen}
+
+
+% Make sure floats are placed correctly
+\let\Oldsection\section
+\renewcommand{\section}{\FloatBarrier\Oldsection}
+
+\let\Oldsubsection\subsection
+\renewcommand{\subsection}{\FloatBarrier\Oldsubsection}
+
+\let\Oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\FloatBarrier\Oldsubsubsection}
+
+\floatplacement{figure}{ht}
+\floatplacement{table}{ht}
+
+
+% Rename appendix chapter to appendix
+\crefname{appendix}{Appendix}{Appendices}
+
+
+% Custom date
+\newdateformat{monthyear}{\monthname[\THEMONTH] \THEYEAR}
+
+
+% Rename lists
+\renewcommand*\contentsname{Table of Contents}
+\renewcommand*{\acronymname}{List of Abbreviations}
+\renewcommand*{\lstlistlistingname}{List of Listings}
+
+
+% Add list of listings to toc
+\renewcommand{\lstlistoflistings}{\begingroup\tocfile{\lstlistlistingname}{lol}\endgroup}
+
+
+% Generate abbreviations
+\input{contents/abbreviations.tex}
+\makeglossaries
+
+
 % Add prefix to figures
 \graphicspath{ {figures/} }
 
@@ -5,10 +62,6 @@
 % Adding internal counters to figures and tables
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
-
-
-% Custom date
-\newdateformat{monthyear}{\monthname[\THEMONTH] \THEYEAR}
 
 
 % Add bibliography
@@ -20,22 +73,13 @@
 \lstset{breaklines}
 
 
-% Refer to figure, table, or equation
-\newcommand{\referfigure}[1]{\hyperref[#1]{Figure \ref*{#1}}}
-\newcommand{\refertable}[1]{\hyperref[#1]{Table \ref*{#1}}}
-\newcommand{\referequation}[1]{\hyperref[#1]{Equation \ref*{#1}}}
-\newcommand{\refersection}[1]{\hyperref[#1]{Section \ref*{#1}}}
-\newcommand{\referchapter}[1]{\hyperref[#1]{Chapter \ref*{#1}}}
-\newcommand{\referappendix}[1]{\hyperref[#1]{Appendix \ref*{#1}}}
+% Add bozes around algorithms
+\RestyleAlgo{boxruled}
 
 
 % Set numbering depth
-\setcounter{tocdepth}{1} %Includes up to sections in the table of contents
-\setcounter{secnumdepth}{3} % Numbers up to sub-subsections
-
-
-% Load acronyms
-\input{contents/abbreviations.tex}
+\setcounter{tocdepth}{1} % Includes up to sections in the table of contents
+\setcounter{secnumdepth}{2} % Numbers up to sub-subsections
 
 
 % Check-mark and cross
@@ -51,6 +95,11 @@
 
 % Nicer parentheses in equations
 \delimitershortfall = -1pt
+
+
+% Best configuration color in results
+\definecolor{correct}{rgb}{0.56, 0.93, 0.56}
+
 
 % For JavaScript listings
 \definecolor{lightgray}{rgb}{.9,.9,.9}
@@ -86,4 +135,23 @@
    breaklines=true,
    showtabs=false,
    captionpos=b
+}
+
+
+% Setting up tikz
+
+\usetikzlibrary{positioning}
+
+\tikzset{%
+  every neuron/.style={
+    circle,
+    draw,
+    minimum size=17pt
+  },
+  neuron missing/.style={
+    draw=none, 
+    scale=2,
+    text height=0.333cm,
+    execute at begin node=\color{black}$\vdots$
+  },
 }

@@ -1,0 +1,64 @@
+\section{Technologies}
+
+The following technologies have been utilized in this report.
+
+
+\subsection{Regular expressions}
+
+A regular expression is a string describing a set of strings, a pattern, following given syntax rules. Regular expressions are widely used in text editors, when searching and replacing text based on patterns. Regular expressions are supported by several programming languages, such as JavaScript and Python.
+
+An important part of regular expressions are meta-characters. Meta-characters describe a set of characters, and allow evaluating logical expressions on the string. \cref{tab:regular-expression-meaning} shows some of the most central meta-characters.
+
+\begin{table}
+    \centering
+    \noindent\begin{tabulary}{\textwidth}{| L | L |}
+        \hline
+        \textbf{Character}                                              & \textbf{Meaning} \\\hline
+        \textasciicircum, \$                                            & Start and end of string \\\hline
+        .                                                               & Any character except newline \\\hline
+        \textbackslash .                                                & Escaping of a meta-character (in this case \textit{.}) \\\hline
+        $[abc]$                                                           & Group of characters (in this case, \textit{a}, \textit{b}, or \textit{c}) \\\hline
+        $a|b$                                                             & Logical or of characters (in this case \textit{a} or \textit{b}) \\\hline
+        \textbackslash s, \textbackslash d, \textbackslash w            & Whitespace character, digit, and word character \\\hline
+        \{m, n\}                                                        & Between \textit{m} and \textit{n} inclusive occurrences of the previous meta-character \\\hline
+        ?                                                               & Zero or one occurrences of the previous meta-character \\\hline
+        +                                                               & One or more occurrences of the previous meta-character \\\hline
+        *                                                               & Zero or more occurrences of the previous meta-character \\\hline
+    \end{tabulary}
+    \caption{List of central meta-characters used in regular expressions.}
+    \label{tab:regular-expression-meaning}
+\end{table}
+
+
+\subsection{HTML}
+
+\gls{html} is the de facto standard markup language for creating web pages. An \gls{html} document is built up by tags describing how the web page should look and behave. Web browsers read \gls{html} documents and present the content accordingly.
+
+
+\subsection{JavaScript}
+
+JavaScript is a high-level programming language. Together with \gls{html}, JavaScript is a powerful tool supported by just about every modern web browser. JavaScript is versatile, supporting both object oriented-programming and functional programming.
+
+JavaScript is natively supported in \gls{html}, and is extremely useful for creating dynamic web pages. A popular use case for JavaScript is dynamic loading of data without reloading the web page.
+
+
+\subsection{Python}
+
+Python is a high-level programming language. It supports several programming paradigms, such as imperative, functional, object-oriented, and procedural programming. Python was originally developed as a scripting language, but is today used in several other contexts, such as web servers and desktop applications.
+
+There is a vast community around Python, and countless libraries for everything from web scraping to 3D animation.
+
+
+\subsection{Tensorflow}
+
+TensorFlow is an open source library for machine learning. TensorFlow performs numerical computations using data flow graphs. The nodes in the graphs represent mathematical operations, while the edges represent the data arrays communicated between the nodes. TensorFlow has a flexible architecture, allowing for parallel computations over several CPUs or GPUs on servers, desktop computers, or mobile devices \citep{bib:tensorflow}.
+
+
+\subsection{Keras}
+
+Keras is a high-level \gls{ann} API, written in Python. Keras does not implement any form for \gls{ann} functionality itself, but runs on top other libraries, like TensorFlow. Keras was developed with a focus on user friendliness, modularity, and extensibility \citep{bib:keras}.
+
+
+\subsection{MySQL}
+
+MySQL is a database management system based on \gls{sql}. \gls{sql} is a programming language designed for use with databases. The language is based on relational algebra and calculations, and is mostly used for interacting with relational databases \citep{bib:codd1982relational}.

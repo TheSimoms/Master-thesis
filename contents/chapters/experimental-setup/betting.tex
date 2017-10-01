@@ -1,0 +1,14 @@
+\section{Betting simulation}
+
+When evaluating a network in a betting situation, the most promising configuration of the network is used. Ten different prediction model instances are trained, as when measuring prediction accuracy.
+
+To evaluate the profitability of the network, for each network instance, four different betting strategies are used:
+\begin{itemize}[noitemsep]
+    \item Fixed bet, with $c_{i} = 1$
+    \item Fixed return, with $c_{i} = 1 / d_{i}$
+    \item Variance adjusted
+    \item Kelly ratio, with  $C_{0} = 0.05$
+\end{itemize}
+Each combination of model instance and strategy is evaluated over the span of two seasons of the English Premier League. The initial bankroll is set to $100$.
+
+For each model instance, the results for each strategy are presented. The development of the \gls{roi} over the span of the season is plotted. The least profitable and most profitable simulations for each strategy are plotted together with the strategy mean.

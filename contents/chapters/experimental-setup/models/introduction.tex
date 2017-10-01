@@ -1,0 +1,12 @@
+\section{Prediction models}
+\label{sec:prediciton-models}
+
+This section presents the different networks constructed for training prediction models. For each network, the model input is presented, along with a rationale behind the network.
+
+When measuring the performance of a network, different network configurations are evaluated. For each configuration, ten different prediction models are trained. At each training round, the initial weights and biases of the network are randomized, making sure no two models are the same. In addition, the training data set is scrambled randomly before each training round. By doing this, the results present the overall accuracy of the network, and not just the effects of a potentially lucky combination of initial weights and training data.
+
+For each configuration, the minimum, maximum, and mean \gls{rps} values are presented. In addition, the prediction accuracy of the model is presented.
+
+Prediction accuracy is evaluated for the 2015-2016 season of the English Premier League. The most promising configuration for each network is then used for evaluating the profitability of the prediction models over the span of the seasons 2015-2017 of the English Premier League. The 2016-2017 season is not included when measuring prediction accuracy, to give a more realistic betting simulation. The results are not that credible if one choose network configuration based on the same data for which the model will be evaluated.
+
+When training the prediction models, matches all the way back to the 2009-2010 season of the English Premier League are used. This is the first season where \\ \whoscored\ offered fully detailed match information. As the data available at \whoscored\ is not perfect, matches with incomplete data are excluded from training.

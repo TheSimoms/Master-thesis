@@ -1,0 +1,12 @@
+\subsection{Team characteristics and strengths}
+
+This model is an extension of the team characteristics model. In addition to the team characteristics, the model incorporates team strengths. The team strengths are given as final ratings of the starting players after the team's last match, as well as the most recent final rating for the team itself.
+
+\subsubsection{Input}
+
+In addition to the $43$ values for the team characteristics, there are eleven values, one for each player. Lastly, there is an additional value, for the team rating. With $43 + 11 + 1 = 55$ features for each team, there is a total of $55 * 2 = 110$ features for each match.
+
+For the match between Arsenal and Manchester United May 7, 2017, the input values would be as follows:
+\begin{lstlisting}[language=Python]
+    [0.77, 0.56, 0.67, 0.61, 0.53, 0.65, 0.60, 0.65, 0.63, 0.72, 0.65, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.45, 0.45, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.15, 0.0, 0.0, 0.0, 0.0, 0.45, 0.0, 0.0, 0.0, 0.45, 1.0, 0.0, 1.0, 0.0, 0.63, 0.70, 0.72, 0.71, 0.68, 0.72, 0.69, 0.75, 0.82, 0.68, 0.78, 0.71, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.25, 0.0, 0.45, 0.0, 0.45, 0.55, 0.45, 0.15, 0.0, 0.0, 0.45, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.0, 0.0, 1.0, 0.55, 0.0, 1.0, 1.0, 0.0, 0.70]
+\end{lstlisting}

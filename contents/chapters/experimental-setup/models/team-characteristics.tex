@@ -1,0 +1,15 @@
+\subsection{Team characteristics}
+
+This model uses the ideas from \cref{subsec:variables-team-characteristics}. The model also incorporates some of the ideas from \citet{bib:constantinou-fenton-neil-2012}, whereas teams are evaluated anonymously. Teams are represented as the set of their characteristics at match start.
+
+The rationale behind this model is to capture what makes teams win against some opponents, but lose against others. Aside from team strengths and player abilities, what decides a football match? The idea is that the model will capture cases where one team has characteristics that give an advantage over the other team's characteristics. For example if a strength of the home team is "Creating long shot opportunities", whilst a weakness of the away team is "Defending against long shots".
+
+\subsubsection{Input}
+
+Each team is represented as $43$ values in the range $[0, 1]$. Each value corresponds to a team characteristic (see: \cref{subsec:database-overview-team-stats}). Values corresponding to present styles are set to $1$. Strengths and weaknesses are divided by $100$ to fit them into the range $[0, 0.55]$. With $43$ values for each team, that gives a total of $43 * 2 = 86$ features for each match.
+
+For the match between Arsenal and Manchester United May 7, 2017, the input values would be as follows:
+\begin{lstlisting}[language=Python]
+    [1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.45, 0.45, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.15, 0.0, 0.0, 0.0, 0.0, 0.45, 0.0, 0.0, 0.0, 0.45, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.25, 0.0, 0.45, 0.0, 0.45, 0.55, 0.45, 0.15, 0.0, 0.0, 0.45, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.0, 0.0, 1.0, 0.55, 0.0, 1.0, 1.0]
+\end{lstlisting}
+The first 43 values are Arsenal characteristics. The last 43 are Manchester United characteristics.
